@@ -63,7 +63,8 @@ CREATE TABLE activity (
 	club INTEGER,
     version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
-	FOREIGN KEY (club) REFERENCES club (id)
+	FOREIGN KEY (club) REFERENCES club (id),
+	UNIQUE (title, date, club)
 );
 
 CREATE TABLE r_type_activity (
@@ -104,7 +105,8 @@ CREATE TABLE service (
 	club INTEGER,
     version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
-	FOREIGN KEY (club) REFERENCES club (id)
+	FOREIGN KEY (club) REFERENCES club (id),
+    UNIQUE (title, date, club)
 );
 
 CREATE TABLE r_type_service (
