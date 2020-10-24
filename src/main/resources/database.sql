@@ -7,12 +7,14 @@ USE rendicontation;
 
 CREATE TABLE district (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(20)
+	name VARCHAR(20),
+	UNIQUE (name)
 );
 
 CREATE TABLE cap (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	number VARCHAR(7)
+	number VARCHAR(7),
+    UNIQUE (number)
 );
 
 CREATE TABLE city (
@@ -36,14 +38,17 @@ CREATE TABLE club (
 	city INTEGER,
 	district INTEGER,
 	FOREIGN KEY (city) REFERENCES city (id),
-	FOREIGN KEY (district) REFERENCES district (id)
+	FOREIGN KEY (district) REFERENCES district (id),
+    UNIQUE (name),
+    UNIQUE (email)
 );
 
 -- Activity
 
 CREATE TABLE type_activity (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(70)
+	title VARCHAR(70),
+    UNIQUE (title)
 );
 
 CREATE TABLE activity (
@@ -56,6 +61,7 @@ CREATE TABLE activity (
 	satisfaction_degree INTEGER,
 	city INTEGER,
 	club INTEGER,
+    version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id)
 );
@@ -72,12 +78,14 @@ CREATE TABLE r_type_activity (
 
 CREATE TABLE type_service (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(70)
+	title VARCHAR(70),
+    UNIQUE (title)
 );
 
 CREATE TABLE competence_area (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(70)
+	title VARCHAR(70),
+    UNIQUE (title)
 );
 
 CREATE TABLE service (
@@ -94,6 +102,7 @@ CREATE TABLE service (
 	quantity_served_people INTEGER,
 	city INTEGER,
 	club INTEGER,
+    version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id)
 );
