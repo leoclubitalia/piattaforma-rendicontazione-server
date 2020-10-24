@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
-    boolean existsActivityByTitleAndDateAndClub();
+    boolean existsActivityByTitleAndDateAndClub(String title, Date date, Club club);
     int countAllByClub(Club club);
     @Query("SELECT COUNT(s) " +
            "FROM Service s " +

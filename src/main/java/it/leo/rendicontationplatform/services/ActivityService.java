@@ -17,7 +17,7 @@ public class ActivityService {
 
     @Transactional(readOnly = false)
     public Activity addActivity(Activity activity) throws ActivityAlreadyExistException {
-        if ( activityRepository.existsActivityByTitleAndDateAndClub() ) {
+        if ( activityRepository.existsActivityByTitleAndDateAndClub(activity.getTitle(), activity.getDate(), activity.getClub()) ) {
             throw new ActivityAlreadyExistException();
         }
         return activityRepository.save(activity);

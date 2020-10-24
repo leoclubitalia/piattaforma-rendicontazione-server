@@ -12,9 +12,9 @@ import java.util.Date;
 
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Integer> {
-    boolean existsActivityByTitleAndDateAndClub();
+    boolean existsActivityByTitleAndDateAndClub(String title, Date date, Club club);
     int countAllByClub(Club club);
-    @Query("SELECT COUNT(s) " +
+    @Query("SELECT COUNT(a) " +
             "FROM Activity a " +
             "WHERE a.club = ?1 AND " +
             "a.date > ?2")

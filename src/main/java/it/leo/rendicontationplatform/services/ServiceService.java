@@ -16,7 +16,7 @@ public class ServiceService {
 
     @Transactional(readOnly = false)
     public Service addService(Service service) throws ServiceAlreadyExistException {
-        if ( serviceRepository.existsActivityByTitleAndDateAndClub() ) {
+        if ( serviceRepository.existsActivityByTitleAndDateAndClub(service.getTitle(), service.getDate(), service.getClub()) ) {
             throw new ServiceAlreadyExistException();
         }
         return serviceRepository.save(service);
