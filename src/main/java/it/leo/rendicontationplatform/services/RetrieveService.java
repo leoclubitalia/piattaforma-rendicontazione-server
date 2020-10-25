@@ -1,17 +1,16 @@
 package it.leo.rendicontationplatform.services;
 
 
-import it.leo.rendicontationplatform.entities.Club;
-import it.leo.rendicontationplatform.repositories.ActivityRepository;
-import it.leo.rendicontationplatform.repositories.ClubRepository;
-import it.leo.rendicontationplatform.repositories.ServiceRepository;
+import it.leo.rendicontationplatform.entities.*;
+import it.leo.rendicontationplatform.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -22,27 +21,98 @@ public class RetrieveService {
     private ServiceRepository serviceRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private TypeActivityRepository typeActivityRepository;
+    @Autowired
+    private TypeServiceRepository typeServiceRepository;
+    @Autowired
+    private CompetenceAreaRepository competenceAreaRepository;
+    @Autowired
+    private CityRepository cityRepository;
+    @Autowired
+    private DistrictRepository districtRepository;
 
 
     @Transactional(readOnly = true)
     public Club getInfoClub(String name) {
-        return clubRepository.findByName(name);
+        return clubRepository.findClubByName(name);
     }
 
     @Transactional(readOnly = true)
     public Map<String, Integer> getQuantityServices(Club club) {
         Map<String, Integer> result = new HashMap<>();
-        result.put("all", serviceRepository.countAllByClub(club));
-        result.put("current_year", serviceRepository.countAllByClubAndSocialYear(club, getStartDateCurrentSocialYear()));
+        result.put("all", serviceRepository.countServicesByClub(club));
+        result.put("current_year", serviceRepository.countAllServicesByClubAndSocialYear(club, getStartDateCurrentSocialYear()));
         return result;
     }
 
     @Transactional(readOnly = true)
     public Map<String, Integer> getQuantityActivities(Club club) {
         Map<String, Integer> result = new HashMap<>();
-        result.put("all", activityRepository.countAllByClub(club));
+        result.put("all", activityRepository.countActivitiesByClub(club));
         result.put("current_year", activityRepository.countAllByClubAndSocialYear(club, getStartDateCurrentSocialYear()));
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TypeActivity> getAllTypeActivity() {
+        return typeActivityRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TypeService> getAllTypeService() {
+        return typeServiceRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CompetenceArea> getAllCompetenceArea() {
+        return competenceAreaRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Club> getAllClubs() {
+        return clubRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Club> getAllClubs(int pageNumber, int pageSize) {
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
+        Page<Club> pagedResult = clubRepository.findAll(paging);
+        if ( pagedResult.hasContent() ) {
+            return pagedResult.getContent();
+        }
+        else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<City> getAllCities(int pageNumber, int pageSize) {
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
+        Page<City> pagedResult = cityRepository.findAll(paging);
+        if ( pagedResult.hasContent() ) {
+            return pagedResult.getContent();
+        }
+        else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<District> getAllDistricts() {
+        return districtRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<District> getAllDistricts(int pageNumber, int pageSize) {
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
+        Page<District> pagedResult = districtRepository.findAll(paging);
+        if ( pagedResult.hasContent() ) {
+            return pagedResult.getContent();
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 
     private Date getStartDateCurrentSocialYear() {

@@ -1,12 +1,18 @@
 package it.leo.rendicontationplatform.repositories;
 
 
+import it.leo.rendicontationplatform.entities.City;
 import it.leo.rendicontationplatform.entities.Club;
+import it.leo.rendicontationplatform.entities.District;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Integer> {
-    Club findByName(String name);
+    Club findClubByName(String name);
+    List<Club> findClubByDistrict(District district);
+    List<Club> findClubsByNameContainingIgnoreCase(String name);
+    List<Club> findClubByCity(City city);
 }

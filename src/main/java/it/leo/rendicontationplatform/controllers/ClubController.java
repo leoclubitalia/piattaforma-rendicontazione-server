@@ -19,17 +19,17 @@ public class ClubController {
 
     @GetMapping("/details/{name}")
     public ResponseEntity getInfoClub(@PathVariable("name") String name) {
-        return new ResponseEntity<>(retrieveService.getInfoClub(name), HttpStatus.OK);
+        return new ResponseEntity(retrieveService.getInfoClub(name), HttpStatus.OK);
     }
 
     @GetMapping("/quantity_services_made")
     public ResponseEntity getServicesQuantity(@RequestBody @Valid Club club) {
-        return new ResponseEntity<>(retrieveService.getQuantityServices(club), HttpStatus.OK);
+        return new ResponseEntity(retrieveService.getQuantityServices(club), HttpStatus.OK);
     }
 
     @GetMapping("/quantity_activities_made")
     public ResponseEntity getActivitiesQuantity(@RequestBody @Valid Club club) {
-        return new ResponseEntity<>(retrieveService.getQuantityActivities(club), HttpStatus.OK);
+        return new ResponseEntity(retrieveService.getQuantityActivities(club), HttpStatus.OK);
     }
 
 

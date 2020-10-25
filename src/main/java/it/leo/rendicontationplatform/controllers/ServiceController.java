@@ -23,9 +23,9 @@ public class ServiceController {
     public ResponseEntity create(@RequestBody @Valid Service service) {
         try {
             Service added = serviceService.addService(service);
-            return new ResponseEntity<>(added, HttpStatus.OK);
+            return new ResponseEntity(added, HttpStatus.OK);
         } catch (ServiceAlreadyExistException e) {
-            return new ResponseEntity<>(Constants.SERVICE_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(Constants.SERVICE_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -33,9 +33,9 @@ public class ServiceController {
     public ResponseEntity edit(@RequestBody @Valid Service service) {
         try {
             Service added = serviceService.editService(service);
-            return new ResponseEntity<>(added, HttpStatus.OK);
+            return new ResponseEntity(added, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(Constants.SOMETHING_WENT_WRONG, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(Constants.SOMETHING_WENT_WRONG, HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -23,15 +23,15 @@ public class ActivityController {
     public ResponseEntity create(@RequestBody @Valid Activity activity) {
         try {
             Activity added = activityService.addActivity(activity);
-            return new ResponseEntity<>(added, HttpStatus.OK);
+            return new ResponseEntity(added, HttpStatus.OK);
         } catch (ActivityAlreadyExistException e) {
-            return new ResponseEntity<>(Constants.SERVICE_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(Constants.SERVICE_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping
     public ResponseEntity edit(@RequestBody @Valid Activity activity) {
-        return new ResponseEntity<>(activityService.editActivity(activity), HttpStatus.OK);
+        return new ResponseEntity(activityService.editActivity(activity), HttpStatus.OK);
     }
 
 
