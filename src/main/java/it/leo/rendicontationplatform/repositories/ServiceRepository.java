@@ -36,7 +36,6 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "      (s.city = ?12 OR ?12 IS NULL) AND " +
            "      (s.club = ?13 OR ?13 IS NULL) AND " +
            "      (?14 IN (s.typesService) OR ?14 IS NULL) AND " +
-           "      (?15 IN (s.competenceAreasService) OR ?15 IS NULL) "
-    )
+           "      (?15 IN (s.competenceAreasService) OR ?15 IS NULL) " )
     Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int satisfactionDegree, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, City city, Club club, TypeService typeService, CompetenceArea competenceArea, Pageable pageable);
 }
