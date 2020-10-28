@@ -1,6 +1,8 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -13,6 +15,7 @@ public class Club {
     private int id;
 
     @Basic
+    @JsonIgnore
     @Column(name = "enabled", nullable = true)
     private boolean enabled;
 

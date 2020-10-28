@@ -1,6 +1,8 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -39,6 +41,7 @@ public class Activity {
     private int satisfactionDegree;
 
     @Version
+    @JsonIgnore
     @Column(name = "version", nullable = false)
     private long version;
 
