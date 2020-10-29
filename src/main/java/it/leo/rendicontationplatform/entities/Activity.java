@@ -53,7 +53,8 @@ public class Activity {
     @JoinColumn(name = "club")
     private Club club;
 
-    @ManyToMany(mappedBy = "activities", cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "type_activity"), inverseJoinColumns = @JoinColumn(name = "activity"))
     private Set<TypeActivity> typesActivity;
 
 

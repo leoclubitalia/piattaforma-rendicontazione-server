@@ -19,7 +19,8 @@ public class TypeActivity {
     private String title;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "typesActivity", cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "activity"), inverseJoinColumns = @JoinColumn(name = "type_activity"))
     private Set<Activity> activities;
 
 

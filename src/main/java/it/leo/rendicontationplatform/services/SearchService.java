@@ -36,7 +36,7 @@ public class SearchService {
 
     @Transactional(readOnly = true)
     public List<City> findCityByCap(Cap cap) {
-        return cityRepository.findCityByCaps(Arrays.asList(cap));
+        return cityRepository.findCityByCaps(cap);
     }
 
     @Transactional(readOnly = true)

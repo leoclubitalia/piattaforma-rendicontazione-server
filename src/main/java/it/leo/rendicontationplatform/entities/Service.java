@@ -69,10 +69,12 @@ public class Service {
     @JoinColumn(name = "club")
     private Club club;
 
-    @ManyToMany(mappedBy = "services", cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "r_type_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "type_service"))
     private Set<TypeService> typesService;
 
-    @ManyToMany(mappedBy = "services", cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "competence_area_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "competence_area"))
     private Set<CompetenceArea> competenceAreasService;
 
 

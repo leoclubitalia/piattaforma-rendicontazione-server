@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer> {
-    List<City> findCityByCaps(List<Cap> caps);
+    List<City> findCityByCaps(Cap caps);
     List<City> findCityByName(String name);
 }

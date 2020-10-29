@@ -17,8 +17,8 @@ public class ClubController {
     private RetrieveService retrieveService;
 
 
-    @GetMapping("/details/{name}")
-    public ResponseEntity getInfoClub(@PathVariable("name") String name) {
+    @GetMapping("/details")
+    public ResponseEntity getInfoClub(@RequestParam(value = "name") String name) {
         return new ResponseEntity(retrieveService.getInfoClub(name), HttpStatus.OK);
     }
 

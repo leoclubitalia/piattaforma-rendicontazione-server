@@ -17,7 +17,8 @@ public class City {
     @Column(name = "name", nullable = true, length = 50)
     private String name;
 
-    @ManyToMany(mappedBy = "cities", cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "city_cap", joinColumns = @JoinColumn(name = "city"), inverseJoinColumns = @JoinColumn(name = "cap"))
     private Set<Cap> caps;
 
 
