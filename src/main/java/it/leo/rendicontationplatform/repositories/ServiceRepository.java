@@ -13,14 +13,14 @@ import java.util.Date;
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Integer> {
     boolean existsServiceByTitleAndDateAndClub(String title, Date date, Club club);
-    int countServicesByClub(Club club);
+    int countServicesByClubId(int clubId);
     Page<Service> findServicesByClub(Club club, Pageable pageable);
 
     @Query("SELECT COUNT(s) " +
            "FROM Service s " +
-           "WHERE s.club = ?1 AND " +
+           "WHERE s.club.id = ?1 AND " +
            "s.date > ?2")
-    int countAllServicesByClubAndSocialYear(Club club, Date startDate);
+    int countAllServicesByClubIdAndSocialYear(int clubId, Date startDate);
 
     @Query("SELECT s " +
            "FROM Service s " +

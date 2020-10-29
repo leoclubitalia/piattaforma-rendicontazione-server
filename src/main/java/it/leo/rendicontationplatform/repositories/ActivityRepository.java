@@ -13,14 +13,14 @@ import java.util.Date;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     boolean existsActivityByTitleAndDateAndClub(String title, Date date, Club club);
-    int countActivitiesByClub(Club club);
+    int countActivitiesByClubId(int clubId);
     Page<Activity> findActivitiesByClub(Club club, Pageable pageable);
 
     @Query("SELECT COUNT(a) " +
            "FROM Activity a " +
-           "WHERE a.club = ?1 AND " +
+           "WHERE a.club.id = ?1 AND " +
            "a.date > ?2")
-    int countAllByClubAndSocialYear(Club club, Date startDate);
+    int countAllActivitiesByClubIdAndSocialYear(int clubId, Date startDate);
 
     @Query("SELECT a " +
            "FROM Activity a " +
