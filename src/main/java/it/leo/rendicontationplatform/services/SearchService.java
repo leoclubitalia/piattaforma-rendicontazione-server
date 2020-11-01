@@ -72,9 +72,9 @@ public class SearchService {
     }
 
     @Transactional(readOnly = true)
-    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int satisfactionDegree, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, City city, Club club, TypeService typeService, CompetenceArea competenceArea, int pageNumber, int pageSize) {
+    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, City city, Club club, TypeService typeService, CompetenceArea competenceArea, int pageNumber, int pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
-        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, satisfactionDegree, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, city, club, typeService, competenceArea, paging);
+        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, city, club, typeService, competenceArea, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
         }
