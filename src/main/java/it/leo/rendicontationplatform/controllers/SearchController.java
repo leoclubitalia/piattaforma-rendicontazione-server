@@ -88,7 +88,23 @@ public class SearchController {
     }
 
     @GetMapping("/service/advanced")
-    public ResponseEntity getAdvancedSearchServices(@RequestParam(value = "title") String title, @RequestParam(value = "startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @RequestParam(value = "endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate, @RequestParam(value = "quantityParticipants") int quantityParticipants, @RequestParam(value = "impact") int impact, @RequestParam(value = "duration") int duration, @RequestParam(value = "otherAssociations") String otherAssociations, @RequestParam(value = "minMoneyRaised") float minMoneyRaised, @RequestParam(value = "maxMoneyRaised") float maxMoneyRaised, @RequestParam(value = "quantityServedPeople") int quantityServedPeople, @RequestParam(value = "cityId") @Valid int cityId, @RequestParam(value = "clubId") @Valid int clubId, @RequestParam(value = "typeServiceId") @Valid int typeServiceId, @RequestParam(value = "competenceAreaId") @Valid int competenceAreaId, @RequestParam(value = "districtId") int districtId, @RequestParam(value = "pageNumber") int pageNumber, @RequestParam(value = "pageSize") int pageSize) {
+    public ResponseEntity getAdvancedSearchServices(@RequestParam(required = false) String title,
+                                                    @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date startDate,
+                                                    @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date endDate,
+                                                    @RequestParam(required = false) Integer quantityParticipants,
+                                                    @RequestParam(required = false) Integer impact,
+                                                    @RequestParam(required = false) Integer duration,
+                                                    @RequestParam(required = false) String otherAssociations,
+                                                    @RequestParam(required = false) Float minMoneyRaised,
+                                                    @RequestParam(required = false) Float maxMoneyRaised,
+                                                    @RequestParam(required = false) Integer quantityServedPeople,
+                                                    @RequestParam(required = false) Integer cityId,
+                                                    @RequestParam(required = false) Integer clubId,
+                                                    @RequestParam(required = false) Integer typeServiceId,
+                                                    @RequestParam(required = false) Integer competenceAreaId,
+                                                    @RequestParam(required = false) Integer districtId,
+                                                    Integer pageNumber,
+                                                    Integer pageSize) {
         return new ResponseEntity(searchService.findServicesAdvanced(title, startDate, endDate, quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, pageNumber, pageSize), HttpStatus.OK);
     }
 

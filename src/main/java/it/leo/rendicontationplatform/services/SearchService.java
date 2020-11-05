@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -76,11 +75,9 @@ public class SearchService {
     }
 
     @Transactional(readOnly = true)
-    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, int cityId, int clubId, int typeServiceId, int competenceAreaId, int districtId, int pageNumber, int pageSize) {
+    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer impact, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
-        TypeService typeService = typeServiceRepository.findTypeServiceById(typeServiceId);
-        CompetenceArea competenceArea = competenceAreaRepository.findCompetenceAreaById(competenceAreaId);
-        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeService, competenceArea, districtId, paging);
+        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
         }

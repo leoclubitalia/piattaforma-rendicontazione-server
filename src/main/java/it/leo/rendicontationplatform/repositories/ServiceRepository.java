@@ -23,7 +23,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     int countAllServicesByClubIdAndSocialYear(int clubId, Date startDate);
 
     @Query("SELECT s " +
-           "FROM Service s " +
+           "FROM Service s LEFT JOIN s.typesService t LEFT JOIN s.competenceAreasService c " +
            "WHERE (s.title LIKE ?1 OR ?1 IS NULL) AND " +
            "      ((s.date >= ?2 AND s.date <= ?3) OR (s.date >= ?2 AND ?3 IS NULL) OR (s.date <= ?3 AND ?2 IS NULL) OR (?2 IS NULL AND ?3 IS NULL)) AND " +
            "      (s.quantityParticipants >= ?4 OR ?4 IS NULL) AND " +
@@ -34,8 +34,8 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "      (s.quantityServedPeople >= ?10 OR ?10 IS NULL) AND " +
            "      (s.city.id = ?11 OR ?11 IS NULL) AND " +
            "      (s.club.id = ?12 OR ?12 IS NULL) AND " +
-           "      (?13 IN (s.typesService) OR ?13 IS NULL) AND " +
-           "      (?14 IN (s.competenceAreasService) OR ?14 IS NULL) AND " +
-           "      (s.club.district.id = ?15 OR ?15 IS NULL) ")
-    Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, int cityId, int club, TypeService typeService, CompetenceArea competenceArea, int districtId, Pageable pageable);
+           "      (s.club.district.id = ?15 OR ?15 IS NULL) AND " +
+           "      (?13 = t.id OR ?13 IS NULL) AND " +
+           "      (?14 = c.id OR ?14 IS NULL) ")
+    Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer impact, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
 }
