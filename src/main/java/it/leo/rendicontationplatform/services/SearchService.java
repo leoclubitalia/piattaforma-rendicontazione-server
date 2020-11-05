@@ -27,6 +27,10 @@ public class SearchService {
     private ServiceRepository serviceRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private TypeServiceRepository typeServiceRepository;
+    @Autowired
+    private CompetenceAreaRepository competenceAreaRepository;
 
 
     @Transactional(readOnly = true)
@@ -72,9 +76,11 @@ public class SearchService {
     }
 
     @Transactional(readOnly = true)
-    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, City city, Club club, TypeService typeService, CompetenceArea competenceArea, int districtId, int pageNumber, int pageSize) {
+    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, int quantityParticipants, int impact, int duration, String otherAssociations, float minMoneyRaised, float maxMoneyRaised, int quantityServedPeople, int cityId, int clubId, int typeServiceId, int competenceAreaId, int districtId, int pageNumber, int pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
-        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, city, club, typeService, competenceArea, districtId, paging);
+        TypeService typeService = typeServiceRepository.findTypeServiceById(typeServiceId);
+        CompetenceArea competenceArea = competenceAreaRepository.findCompetenceAreaById(competenceAreaId);
+        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeService, competenceArea, districtId, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
         }

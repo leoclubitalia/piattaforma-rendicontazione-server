@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CompetenceAreaRepository extends JpaRepository<CompetenceArea, Integer> {
+    CompetenceArea findCompetenceAreaById(int id);
 }
