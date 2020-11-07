@@ -114,8 +114,18 @@ public class SearchController {
     }
 
     @GetMapping("/activity/advanced")
-    public ResponseEntity getAdvancedSearchActivities(@RequestParam(value = "title") String title, @RequestParam(value = "startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate, @RequestParam(value = "endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate, @RequestParam(value = "quantityLeo") int quantityLeo, @RequestParam(value = "satisfactionDegree") int satisfactionDegree, @RequestParam(value = "lionsParticipation") boolean lionsParticipation, @RequestParam(value = "city") @Valid City city, @RequestParam(value = "club") @Valid Club club, @RequestParam(value = "typeActivity") @Valid TypeActivity typeActivity, @RequestParam(value = "pageNumber") int pageNumber, @RequestParam(value = "pageSize") int pageSize) {
-        return new ResponseEntity(searchService.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, city, club, typeActivity, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity getAdvancedSearchActivities(@RequestParam(required = false) String title,
+                                                      @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date startDate,
+                                                      @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date endDate,
+                                                      @RequestParam(required = false) Integer quantityLeo,
+                                                      @RequestParam(required = false) Integer satisfactionDegree,
+                                                      @RequestParam(required = false) Boolean lionsParticipation,
+                                                      @RequestParam(required = false) Integer cityId,
+                                                      @RequestParam(required = false) Integer clubId,
+                                                      @RequestParam(required = false) Integer typeActivityId,
+                                                      @RequestParam(required = false) Integer pageNumber,
+                                                      @RequestParam(required = false) Integer pageSize) {
+        return new ResponseEntity(searchService.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, pageNumber, pageSize), HttpStatus.OK);
     }
 
 
