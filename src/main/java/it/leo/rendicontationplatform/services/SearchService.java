@@ -64,7 +64,7 @@ public class SearchService {
 
     @Transactional(readOnly = true)
     public List<Service> findServicesByClub(Club club, int pageNumber, int pageSize) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
         Page<Service> pagedResult = serviceRepository.findServicesByClub(club, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
@@ -76,7 +76,7 @@ public class SearchService {
 
     @Transactional(readOnly = true)
     public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer impact, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
         Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
@@ -88,7 +88,7 @@ public class SearchService {
 
     @Transactional(readOnly = true)
     public List<Activity> findActivitiesByClub(Club club, int pageNumber, int pageSize) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
         Page<Activity> pagedResult = activityRepository.findActivitiesByClub(club, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
@@ -100,7 +100,7 @@ public class SearchService {
 
     @Transactional(readOnly = true)
     public List<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, int quantityLeo, int satisfactionDegree, boolean lionsParticipation, City city, Club club, TypeActivity typeActivity, int pageNumber, int pageSize) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date"));
+        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
         Page<Activity> pagedResult = activityRepository.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, city, club, typeActivity, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
