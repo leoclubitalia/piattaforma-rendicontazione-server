@@ -26,10 +26,6 @@ public class SearchService {
     private ServiceRepository serviceRepository;
     @Autowired
     private ActivityRepository activityRepository;
-    @Autowired
-    private TypeServiceRepository typeServiceRepository;
-    @Autowired
-    private CompetenceAreaRepository competenceAreaRepository;
 
 
     @Transactional(readOnly = true)
@@ -44,7 +40,7 @@ public class SearchService {
 
     @Transactional(readOnly = true)
     public List<City> findCityByName(String name) {
-        return cityRepository.findCityByName(name);
+        return cityRepository.findCityByNameContainingIgnoreCase(name);
     }
 
     @Transactional(readOnly = true)

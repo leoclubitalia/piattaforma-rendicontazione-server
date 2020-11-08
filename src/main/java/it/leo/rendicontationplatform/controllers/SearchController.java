@@ -22,17 +22,17 @@ public class SearchController {
     private SearchService searchService;
 
 
-    @GetMapping("/type/activity")
+    @GetMapping("/type/activity/all")
     public ResponseEntity getAllTypeActivity() {
         return new ResponseEntity(retrieveService.getAllTypeActivity(), HttpStatus.OK);
     }
 
-    @GetMapping("/type/service")
+    @GetMapping("/type/service/all")
     public ResponseEntity getAllTypeService() {
         return new ResponseEntity(retrieveService.getAllTypeService(), HttpStatus.OK);
     }
 
-    @GetMapping("/type/competence_area")
+    @GetMapping("/competence_area/all")
     public ResponseEntity getAllCompetencaArea() {
         return new ResponseEntity(retrieveService.getAllCompetenceArea(), HttpStatus.OK);
     }
@@ -80,6 +80,11 @@ public class SearchController {
     @GetMapping("/district/all/paginated")
     public ResponseEntity getAllDistricts(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         return new ResponseEntity(retrieveService.getAllDistricts(pageNumber, pageSize), HttpStatus.OK);
+    }
+
+    @GetMapping("/district/all")
+    public ResponseEntity getAllDistricts() {
+        return new ResponseEntity(retrieveService.getAllDistricts(), HttpStatus.OK);
     }
 
     @GetMapping("/service/by_club")
