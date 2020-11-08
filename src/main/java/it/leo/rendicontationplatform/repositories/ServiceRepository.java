@@ -27,7 +27,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "WHERE (s.title LIKE ?1 OR ?1 IS NULL) AND " +
            "      ((s.date >= ?2 AND s.date <= ?3) OR (s.date >= ?2 AND ?3 IS NULL) OR (s.date <= ?3 AND ?2 IS NULL) OR (?2 IS NULL AND ?3 IS NULL)) AND " +
            "      (s.quantityParticipants <= ?4 OR ?4 IS NULL) AND " +
-           "      (s.impact = ?5 OR ?5 IS NULL) AND " +
+           "      (s.satisfactionDegree = ?5 OR ?5 IS NULL) AND " +
            "      (s.duration = ?6 OR ?6 IS NULL) AND " +
            "      (s.otherAssociations LIKE ?7 OR ?7 IS NULL) AND " +
            "      ((s.moneyRaised >= ?8 AND s.moneyRaised <= ?9) OR (s.moneyRaised >= ?8 AND ?9 IS NULL) OR (s.moneyRaised <= ?9 AND ?8 IS NULL) OR (?8 IS NULL AND ?9 IS NULL)) AND " +
@@ -38,5 +38,5 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "      (?13 = t.id OR ?13 IS NULL) AND " +
            "      (?14 = c.id OR ?14 IS NULL) " +
            " GROUP BY s ")
-    Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer impact, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
+    Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
 }

@@ -92,7 +92,7 @@ public class SearchController {
                                                     @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date startDate,
                                                     @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date endDate,
                                                     @RequestParam(required = false) Integer quantityParticipants,
-                                                    @RequestParam(required = false) Integer impact,
+                                                    @RequestParam(required = false) Integer satisfactionDegree,
                                                     @RequestParam(required = false) Integer duration,
                                                     @RequestParam(required = false) String otherAssociations,
                                                     @RequestParam(required = false) Float minMoneyRaised,
@@ -105,7 +105,7 @@ public class SearchController {
                                                     @RequestParam(required = false) Integer districtId,
                                                     Integer pageNumber,
                                                     Integer pageSize) {
-        return new ResponseEntity(searchService.findServicesAdvanced(title, startDate, endDate, quantityParticipants, impact, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, pageNumber, pageSize), HttpStatus.OK);
+        return new ResponseEntity(searchService.findServicesAdvanced(title, startDate, endDate, quantityParticipants, satisfactionDegree, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/activity/by_club")
@@ -123,8 +123,8 @@ public class SearchController {
                                                       @RequestParam(required = false) Integer cityId,
                                                       @RequestParam(required = false) Integer clubId,
                                                       @RequestParam(required = false) Integer typeActivityId,
-                                                      @RequestParam(required = false) Integer pageNumber,
-                                                      @RequestParam(required = false) Integer pageSize) {
+                                                      Integer pageNumber,
+                                                      Integer pageSize) {
         return new ResponseEntity(searchService.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, pageNumber, pageSize), HttpStatus.OK);
     }
 
