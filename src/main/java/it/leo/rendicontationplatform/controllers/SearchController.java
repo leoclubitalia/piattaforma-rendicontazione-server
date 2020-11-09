@@ -47,6 +47,11 @@ public class SearchController {
         return new ResponseEntity(searchService.findClubsByName(name), HttpStatus.OK);
     }
 
+    @GetMapping("/club/by_id")
+    public ResponseEntity getClubById(int id) {
+        return new ResponseEntity(searchService.findClubsById(id), HttpStatus.OK);
+    }
+
     @GetMapping("/club/by_city")
     public ResponseEntity getClubByCity(@RequestBody @Valid City city) {
         return new ResponseEntity(searchService.findClubsByCity(city), HttpStatus.OK);

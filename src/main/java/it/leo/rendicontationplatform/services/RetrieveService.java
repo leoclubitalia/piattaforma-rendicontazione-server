@@ -34,8 +34,8 @@ public class RetrieveService {
 
 
     @Transactional(readOnly = true)
-    public Club getInfoClub(String name) {
-        return clubRepository.findClubByName(name);
+    public Club getInfoClub(int id) {
+        return clubRepository.findClubById(id);
     }
 
     @Transactional(readOnly = true)

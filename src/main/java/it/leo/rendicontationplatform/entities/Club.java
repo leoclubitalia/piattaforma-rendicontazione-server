@@ -4,6 +4,7 @@ package it.leo.rendicontationplatform.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -26,6 +27,10 @@ public class Club {
     @Basic
     @Column(name = "email", nullable = true, length = 150)
     private String email;
+
+    @Basic
+    @Column(name = "foundation_date", nullable = true)
+    private Date foundationDate;
 
     @ManyToOne
     @JoinColumn(name = "city")
@@ -66,6 +71,14 @@ public class Club {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getFoundationDate() {
+        return foundationDate;
+    }
+
+    public void setFoundationDate(Date foundationDate) {
+        this.foundationDate = foundationDate;
     }
 
     public City getCity() {

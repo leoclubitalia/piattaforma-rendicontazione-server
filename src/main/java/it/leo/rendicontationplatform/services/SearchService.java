@@ -54,6 +54,11 @@ public class SearchService {
     }
 
     @Transactional(readOnly = true)
+    public Club findClubsById(int id) {
+        return clubRepository.findClubById(id);
+    }
+
+    @Transactional(readOnly = true)
     public List<Club> findClubsByCity(City city) {
         return clubRepository.findClubByCity(city);
     }

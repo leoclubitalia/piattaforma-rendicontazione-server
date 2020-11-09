@@ -16,17 +16,17 @@ public class ClubController {
 
 
     @GetMapping("/details")
-    public ResponseEntity getInfoClub(@RequestParam(value = "name") String name) {
-        return new ResponseEntity(retrieveService.getInfoClub(name), HttpStatus.OK);
+    public ResponseEntity getInfoClub(int id) {
+        return new ResponseEntity(retrieveService.getInfoClub(id), HttpStatus.OK);
     }
 
     @GetMapping("/quantity_services_made")
-    public ResponseEntity getServicesQuantity(@RequestParam(value = "club_id") int clubId) {
+    public ResponseEntity getServicesQuantity(int clubId) {
         return new ResponseEntity(retrieveService.getQuantityServices(clubId), HttpStatus.OK);
     }
 
     @GetMapping("/quantity_activities_made")
-    public ResponseEntity getActivitiesQuantity(@RequestParam(value = "club_id") int clubId) {
+    public ResponseEntity getActivitiesQuantity(int clubId) {
         return new ResponseEntity(retrieveService.getQuantityActivities(clubId), HttpStatus.OK);
     }
 

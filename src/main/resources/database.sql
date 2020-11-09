@@ -37,6 +37,7 @@ CREATE TABLE club (
 	email VARCHAR(150),
 	city INTEGER,
 	district INTEGER,
+	foundation_date DATE,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (district) REFERENCES district (id),
     UNIQUE (name),
