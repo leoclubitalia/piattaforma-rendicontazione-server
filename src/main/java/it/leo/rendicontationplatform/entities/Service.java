@@ -32,10 +32,6 @@ public class Service {
     private int quantityParticipants;
 
     @Basic
-    @Column(name = "impact", nullable = true)
-    private int impact;
-
-    @Basic
     @Column(name = "duration", nullable = true)
     private int duration;
 
@@ -123,14 +119,6 @@ public class Service {
 
     public void setSatisfactionDegree(SatisfactionDegree satisfactionDegree) {
         this.satisfactionDegree = satisfactionDegree;
-    }
-
-    public int getImpact() {
-        return impact;
-    }
-
-    public void setImpact(int impact) {
-        this.impact = impact;
     }
 
     public int getDuration() {
