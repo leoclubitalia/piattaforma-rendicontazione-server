@@ -37,6 +37,11 @@ public class SearchController {
         return new ResponseEntity(retrieveService.getAllCompetenceArea(), HttpStatus.OK);
     }
 
+    @GetMapping("/satisfaction_degree/all")
+    public ResponseEntity getAllSatisfactionDegree() {
+        return new ResponseEntity(retrieveService.getAllSatisfactionDegree(), HttpStatus.OK);
+    }
+
     @GetMapping("/club/by_district")
     public ResponseEntity getAllClubsByDistrict(@RequestBody @Valid District district) {
         return new ResponseEntity(searchService.findClubsByDistrict(district), HttpStatus.OK);

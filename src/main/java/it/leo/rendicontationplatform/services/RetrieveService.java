@@ -31,6 +31,8 @@ public class RetrieveService {
     private CityRepository cityRepository;
     @Autowired
     private DistrictRepository districtRepository;
+    @Autowired
+    private SatisfactionDegreeRepository satisfactionDegreeRepository;
 
 
     @Transactional(readOnly = true)
@@ -57,6 +59,11 @@ public class RetrieveService {
     @Transactional(readOnly = true)
     public List<TypeActivity> getAllTypeActivity() {
         return typeActivityRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SatisfactionDegree> getAllSatisfactionDegree() {
+        return satisfactionDegreeRepository.findAll();
     }
 
     @Transactional(readOnly = true)

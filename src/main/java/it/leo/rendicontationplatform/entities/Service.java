@@ -2,7 +2,6 @@ package it.leo.rendicontationplatform.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -31,10 +30,6 @@ public class Service {
     @Basic
     @Column(name = "quantity_participants", nullable = true)
     private int quantityParticipants;
-
-    @Basic
-    @Column(name = "satisfaction_degree", nullable = true)
-    private int satisfactionDegree;
 
     @Basic
     @Column(name = "impact", nullable = true)
@@ -68,6 +63,10 @@ public class Service {
     @ManyToOne
     @JoinColumn(name = "club")
     private Club club;
+
+    @ManyToOne
+    @JoinColumn(name = "satisfaction_degree")
+    private SatisfactionDegree satisfactionDegree;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "r_type_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "type_service"))
@@ -118,11 +117,11 @@ public class Service {
         this.quantityParticipants = quantityParticipants;
     }
 
-    public int getSatisfactionDegree() {
+    public SatisfactionDegree getSatisfactionDegree() {
         return satisfactionDegree;
     }
 
-    public void setSatisfactionDegree(int satisfactionDegree) {
+    public void setSatisfactionDegree(SatisfactionDegree satisfactionDegree) {
         this.satisfactionDegree = satisfactionDegree;
     }
 

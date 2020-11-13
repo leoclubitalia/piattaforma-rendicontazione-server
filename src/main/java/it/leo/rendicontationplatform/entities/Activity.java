@@ -2,7 +2,6 @@ package it.leo.rendicontationplatform.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -36,9 +35,9 @@ public class Activity {
     @Column(name = "lions_participation", nullable = true)
     private boolean lionsParticipation;
 
-    @Basic
-    @Column(name = "satisfaction_degree", nullable = true)
-    private int satisfactionDegree;
+    @ManyToOne
+    @JoinColumn(name = "satisfaction_degree")
+    private SatisfactionDegree satisfactionDegree;
 
     @Version
     @JsonIgnore
@@ -106,11 +105,11 @@ public class Activity {
         this.lionsParticipation = lionsParticipation;
     }
 
-    public int getSatisfactionDegree() {
+    public SatisfactionDegree getSatisfactionDegree() {
         return satisfactionDegree;
     }
 
-    public void setSatisfactionDegree(int satisfactionDegree) {
+    public void setSatisfactionDegree(SatisfactionDegree satisfactionDegree) {
         this.satisfactionDegree = satisfactionDegree;
     }
 

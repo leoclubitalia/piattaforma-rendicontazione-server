@@ -46,10 +46,16 @@ CREATE TABLE club (
 
 -- Activity
 
+CREATE TABLE satisfaction_degree (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(70),
+    UNIQUE (name)
+);
+
 CREATE TABLE type_activity (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(70),
-    UNIQUE (title)
+	name VARCHAR(70),
+    UNIQUE (name)
 );
 
 CREATE TABLE activity (
@@ -65,6 +71,7 @@ CREATE TABLE activity (
     version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id),
+	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
 	UNIQUE (title, date, club)
 );
 
@@ -80,14 +87,14 @@ CREATE TABLE r_type_activity (
 
 CREATE TABLE type_service (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(70),
-    UNIQUE (title)
+	name VARCHAR(70),
+    UNIQUE (name)
 );
 
 CREATE TABLE competence_area (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(70),
-    UNIQUE (title)
+	name VARCHAR(70),
+    UNIQUE (name)
 );
 
 CREATE TABLE service (
@@ -107,6 +114,7 @@ CREATE TABLE service (
     version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id),
+	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
     UNIQUE (title, date, club)
 );
 

@@ -15,8 +15,8 @@ public class CompetenceArea {
     private int id;
 
     @Basic
-    @Column(name = "title", nullable = true, length = 70)
-    private String title;
+    @Column(name = "name", nullable = true, length = 70)
+    private String name;
 
     @JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST})
@@ -32,12 +32,12 @@ public class CompetenceArea {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Service> getServices() {

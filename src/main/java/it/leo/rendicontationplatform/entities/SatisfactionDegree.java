@@ -5,17 +5,16 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "district", schema = "rendicontation")
-public class District {
+@Table(name = "satisfaction_degree", schema = "rendicontation")
+public class SatisfactionDegree {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
     @Basic
-    @Column(name = "name", nullable = false, length = 20)
+    @Column(name = "name", nullable = false, length = 70)
     private String name;
-
 
     public int getId() {
         return id;
@@ -32,6 +31,5 @@ public class District {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }
