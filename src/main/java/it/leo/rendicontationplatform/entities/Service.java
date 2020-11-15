@@ -1,7 +1,10 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -25,6 +28,7 @@ public class Service {
 
     @Basic
     @Column(name = "date", nullable = true)
+    @DateTimeFormat(pattern = "ddMMyyyy")
     private Date date;
 
     @Basic
@@ -66,10 +70,12 @@ public class Service {
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "r_type_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "type_service"))
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<TypeService> typesService;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "competence_area_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "competence_area"))
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<CompetenceArea> competenceAreasService;
 
 
