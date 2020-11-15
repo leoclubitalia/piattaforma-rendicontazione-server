@@ -19,7 +19,7 @@ public class TypeService {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "r_type_service", joinColumns = @JoinColumn(name = "type_service"), inverseJoinColumns = @JoinColumn(name = "service"))
     private Set<Service> services;
 

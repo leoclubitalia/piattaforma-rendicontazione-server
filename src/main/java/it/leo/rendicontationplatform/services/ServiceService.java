@@ -22,7 +22,7 @@ public class ServiceService {
         if ( serviceRepository.existsServiceByTitleAndDateAndClub(service.getTitle(), service.getDate(), service.getClub()) ) {
             throw new ServiceAlreadyExistException();
         }
-        service = serviceRepository.save(service);
+        service = serviceRepository.saveAndFlush(service);
         entityManager.refresh(service);
         return service;
     }

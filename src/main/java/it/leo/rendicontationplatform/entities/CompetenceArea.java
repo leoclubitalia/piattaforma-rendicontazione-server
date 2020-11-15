@@ -19,7 +19,7 @@ public class CompetenceArea {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "competence_area_service", joinColumns = @JoinColumn(name = "competence_area"), inverseJoinColumns = @JoinColumn(name = "service"))
     private Set<Service> services;
 
