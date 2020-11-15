@@ -28,7 +28,7 @@ public class Service {
 
     @Basic
     @Column(name = "date", nullable = true)
-    @DateTimeFormat(pattern = "ddMMyyyy")
+    @JsonFormat(pattern="ddMMyyyy")
     private Date date;
 
     @Basic
@@ -52,8 +52,8 @@ public class Service {
     private int quantityServedPeople;
 
     @Version
-    @JsonIgnore
     @Column(name = "version", nullable = false)
+    @JsonIgnore
     private long version;
 
     @ManyToOne
@@ -68,12 +68,12 @@ public class Service {
     @JoinColumn(name = "satisfaction_degree")
     private SatisfactionDegree satisfactionDegree;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany
     @JoinTable(name = "r_type_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "type_service"))
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<TypeService> typesService;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany
     @JoinTable(name = "competence_area_service", joinColumns = @JoinColumn(name = "service"), inverseJoinColumns = @JoinColumn(name = "competence_area"))
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<CompetenceArea> competenceAreasService;

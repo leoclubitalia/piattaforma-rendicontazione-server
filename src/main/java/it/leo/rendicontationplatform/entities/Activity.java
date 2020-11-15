@@ -1,6 +1,7 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class Activity {
 
     @Basic
     @Column(name = "date", nullable = true)
+    @JsonFormat(pattern="ddMMyyyy")
     private Date date;
 
     @Basic
@@ -40,8 +42,8 @@ public class Activity {
     private SatisfactionDegree satisfactionDegree;
 
     @Version
-    @JsonIgnore
     @Column(name = "version", nullable = false)
+    @JsonIgnore
     private long version;
 
     @ManyToOne
@@ -52,7 +54,7 @@ public class Activity {
     @JoinColumn(name = "club")
     private Club club;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany
     @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "type_activity"), inverseJoinColumns = @JoinColumn(name = "activity"))
     private Set<TypeActivity> typesActivity;
 

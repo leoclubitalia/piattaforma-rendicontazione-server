@@ -6,12 +6,15 @@ import it.leo.rendicontationplatform.repositories.ServiceRepository;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.EntityManager;
 
 
 @org.springframework.stereotype.Service
 public class ServiceService {
     @Autowired
     private ServiceRepository serviceRepository;
+    @Autowired
+    private EntityManager entityManager;
 
 
     @Transactional(readOnly = false)
@@ -19,7 +22,9 @@ public class ServiceService {
         if ( serviceRepository.existsServiceByTitleAndDateAndClub(service.getTitle(), service.getDate(), service.getClub()) ) {
             throw new ServiceAlreadyExistException();
         }
-        return serviceRepository.save(service);
+        service = serviceRepository.save(service);
+        entityManager.refresh(service);
+        return service;
     }
 
     @Transactional(readOnly = false)
