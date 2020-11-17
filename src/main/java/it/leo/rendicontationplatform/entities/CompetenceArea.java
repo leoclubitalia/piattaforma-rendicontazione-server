@@ -18,6 +18,11 @@ public class CompetenceArea {
     @Column(name = "name", nullable = true, length = 70)
     private String name;
 
+    @Basic
+    @JsonIgnore
+    @Column(name = "enabled", nullable = true)
+    private boolean enabled;
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "competence_area_service", joinColumns = @JoinColumn(name = "competence_area"), inverseJoinColumns = @JoinColumn(name = "service"))
@@ -38,6 +43,14 @@ public class CompetenceArea {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Set<Service> getServices() {

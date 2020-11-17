@@ -1,6 +1,8 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -15,6 +17,11 @@ public class District {
     @Basic
     @Column(name = "name", nullable = false, length = 20)
     private String name;
+
+    @Basic
+    @JsonIgnore
+    @Column(name = "enabled", nullable = true)
+    private boolean enabled;
 
 
     public int getId() {
@@ -31,6 +38,14 @@ public class District {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 

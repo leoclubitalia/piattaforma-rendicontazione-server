@@ -36,8 +36,8 @@ public class RetrieveService {
 
 
     @Transactional(readOnly = true)
-    public Club getInfoClub(int id) {
-        return clubRepository.findClubById(id);
+    public Club getInfoClub(int idClub) {
+        return clubRepository.findClubById(idClub);
     }
 
     @Transactional(readOnly = true)
@@ -58,22 +58,22 @@ public class RetrieveService {
 
     @Transactional(readOnly = true)
     public List<TypeActivity> getAllTypeActivity() {
-        return typeActivityRepository.findAll();
+        return typeActivityRepository.findAllTypeActivityEnabled();
     }
 
     @Transactional(readOnly = true)
     public List<SatisfactionDegree> getAllSatisfactionDegree() {
-        return satisfactionDegreeRepository.findAll();
+        return satisfactionDegreeRepository.findAllSatisfactionDegreesEnabled();
     }
 
     @Transactional(readOnly = true)
     public List<TypeService> getAllTypeService() {
-        return typeServiceRepository.findAll();
+        return typeServiceRepository.findAllTypeServiceEnabled();
     }
 
     @Transactional(readOnly = true)
     public List<CompetenceArea> getAllCompetenceArea() {
-        return competenceAreaRepository.findAll();
+        return competenceAreaRepository.findAllCompetenceAreasEnabled();
     }
 
     @Transactional(readOnly = true)
@@ -107,7 +107,7 @@ public class RetrieveService {
 
     @Transactional(readOnly = true)
     public List<District> getAllDistricts() {
-        return districtRepository.findAll();
+        return districtRepository.findAllDistrictsEnabled();
     }
 
     @Transactional(readOnly = true)

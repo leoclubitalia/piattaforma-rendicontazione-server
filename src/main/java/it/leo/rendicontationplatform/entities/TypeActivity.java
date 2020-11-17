@@ -18,6 +18,11 @@ public class TypeActivity {
     @Column(name = "name", nullable = false, length = 70)
     private String name;
 
+    @Basic
+    @JsonIgnore
+    @Column(name = "enabled", nullable = true)
+    private boolean enabled;
+
     @JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "activity"), inverseJoinColumns = @JoinColumn(name = "type_activity"))
@@ -38,6 +43,14 @@ public class TypeActivity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Set<Activity> getActivities() {

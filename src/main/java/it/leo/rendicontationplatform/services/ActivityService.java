@@ -8,11 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 
 @Service
 public class ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private EntityManager entityManager;
 
 
     @Transactional(readOnly = false)
@@ -20,7 +24,9 @@ public class ActivityService {
         if ( activityRepository.existsActivityByTitleAndDateAndClub(activity.getTitle(), activity.getDate(), activity.getClub()) ) {
             throw new ActivityAlreadyExistException();
         }
-        return activityRepository.save(activity);
+        activity = activityRepository.save(activity);
+        entityManager.refresh(activity);
+        return activity;
     }
 
     @Transactional(readOnly = false)

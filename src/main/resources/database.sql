@@ -8,6 +8,7 @@ USE rendicontation;
 CREATE TABLE district (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(20),
+	enabled BOOLEAN,
 	UNIQUE (name)
 );
 
@@ -49,12 +50,14 @@ CREATE TABLE club (
 CREATE TABLE satisfaction_degree (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(70),
+	enabled BOOLEAN,
     UNIQUE (name)
 );
 
 CREATE TABLE type_activity (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(70),
+	enabled BOOLEAN,
     UNIQUE (name)
 );
 
@@ -88,12 +91,14 @@ CREATE TABLE r_type_activity (
 CREATE TABLE type_service (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(70),
+	enabled BOOLEAN,
     UNIQUE (name)
 );
 
 CREATE TABLE competence_area (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(70),
+	enabled BOOLEAN,
     UNIQUE (name)
 );
 
