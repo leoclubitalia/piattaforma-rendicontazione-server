@@ -29,6 +29,12 @@ public class TypeActivity {
     private Set<Activity> activities;
 
 
+    public TypeActivity(){}
+
+    public TypeActivity(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

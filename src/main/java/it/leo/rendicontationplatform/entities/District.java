@@ -24,6 +24,12 @@ public class District {
     private boolean enabled;
 
 
+    public District(){}
+
+    public District(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -138,9 +138,10 @@ public class SearchController {
                                                       @RequestParam(required = false) Integer cityId,
                                                       @RequestParam(required = false) Integer clubId,
                                                       @RequestParam(required = false) Integer typeActivityId,
+                                                      @RequestParam(required = false) Integer districtId,
                                                       Integer pageNumber,
                                                       Integer pageSize) {
-        return new ResponseEntity(searchService.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, pageNumber, pageSize), HttpStatus.OK);
+        return new ResponseEntity(searchService.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, districtId, pageNumber, pageSize), HttpStatus.OK);
     }
 
 

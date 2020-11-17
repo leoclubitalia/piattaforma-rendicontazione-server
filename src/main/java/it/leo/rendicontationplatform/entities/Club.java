@@ -41,6 +41,12 @@ public class Club {
     private District district;
 
 
+    public Club(){}
+
+    public Club(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

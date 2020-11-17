@@ -24,6 +24,12 @@ public class SatisfactionDegree {
     private boolean enabled;
 
 
+    public SatisfactionDegree(){}
+
+    public SatisfactionDegree(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

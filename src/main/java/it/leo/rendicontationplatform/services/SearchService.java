@@ -26,6 +26,10 @@ public class SearchService {
     private ServiceRepository serviceRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private ResearchServiceRepository researchServiceRepository;
+    @Autowired
+    private ResearchActivityRepository researchActivityRepository;
 
 
     @Transactional(readOnly = true)
@@ -75,10 +79,27 @@ public class SearchService {
         }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
-        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate,quantityParticipants, satisfactionDegree, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
+        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate, quantityParticipants, satisfactionDegree, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
+        ResearchService research = new ResearchService();
+        research.setTitle(title);
+        research.setStartDate(startDate);
+        research.setEndDate(endDate);
+        research.setQuantityParticipants(quantityParticipants);
+        research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
+        research.setDuration(duration);
+        research.setOtherAssociations(otherAssociations);
+        research.setMinMoneyRaised(minMoneyRaised);
+        research.setMaxMoneyRaised(maxMoneyRaised);
+        research.setQuantityServedPeople(quantityServedPeople);
+        research.setCity(new City(cityId));
+        research.setClub(new Club(clubId));
+        research.setTypeService(new TypeService(typeServiceId));
+        research.setCompetenceArea(new CompetenceArea(competenceAreaId));
+        research.setDistrict(new District(districtId));
+        researchServiceRepository.save(research);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
         }
@@ -99,10 +120,22 @@ public class SearchService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public List<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer typeActivityId, Integer pageNumber, Integer pageSize) {
+    @Transactional(readOnly = false)
+    public List<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer typeActivityId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
-        Page<Activity> pagedResult = activityRepository.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, paging);
+        Page<Activity> pagedResult = activityRepository.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, districtId, paging);
+        ResearchActivity research = new ResearchActivity();
+        research.setTitle(title);
+        research.setStartDate(startDate);
+        research.setEndDate(endDate);
+        research.setQuantityLeo(quantityLeo);
+        research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
+        research.setLionsParticipation(lionsParticipation);
+        research.setCity(new City(cityId));
+        research.setClub(new Club(clubId));
+        research.setTypeActivity(new TypeActivity(typeActivityId));
+        research.setDistrict(new District(districtId));
+        researchActivityRepository.save(research);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
         }

@@ -29,6 +29,12 @@ public class TypeService {
     private Set<Service> services;
 
 
+    public TypeService(){}
+
+    public TypeService(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

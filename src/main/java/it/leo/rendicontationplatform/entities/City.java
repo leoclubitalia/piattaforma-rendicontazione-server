@@ -22,6 +22,12 @@ public class City {
     private Set<Cap> caps;
 
 
+    public City(){}
+
+    public City(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

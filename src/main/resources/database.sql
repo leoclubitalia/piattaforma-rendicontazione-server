@@ -138,3 +138,47 @@ CREATE TABLE competence_area_service (
 	FOREIGN KEY (service) REFERENCES service (id),
 	FOREIGN KEY (competence_area) REFERENCES competence_area (id)
 );
+
+CREATE TABLE research_service (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(50),
+	start_date DATE,
+	end_date DATE,
+	quantity_participants INTEGER,
+	satisfaction_degree INTEGER,
+	duration INTEGER,
+	other_associations VARCHAR(400),
+	min_money_raised FLOAT,
+	max_money_raised FLOAT,
+	quantity_served_people INTEGER,
+	city INTEGER,
+	club INTEGER,
+	type_service INTEGER,
+    competence_area INTEGER,
+	district INTEGER,
+	FOREIGN KEY (city) REFERENCES city (id),
+	FOREIGN KEY (club) REFERENCES club (id),
+    FOREIGN KEY (district) REFERENCES district (id),
+	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
+	FOREIGN KEY (competence_area) REFERENCES competence_area (id),
+	FOREIGN KEY (type_service) REFERENCES type_service (id)
+);
+
+CREATE TABLE research_activity (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(50),
+	start_date DATE,
+	end_date DATE,
+	quantity_leo INTEGER,
+	satisfaction_degree INTEGER,
+	lions_participation BOOLEAN,
+	city INTEGER,
+	club INTEGER,
+	type_activity INTEGER,
+	district INTEGER,
+	FOREIGN KEY (city) REFERENCES city (id),
+	FOREIGN KEY (club) REFERENCES club (id),
+    FOREIGN KEY (district) REFERENCES district (id),
+	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
+	FOREIGN KEY (type_activity) REFERENCES type_service (id)
+);

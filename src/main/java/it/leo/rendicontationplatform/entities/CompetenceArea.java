@@ -29,6 +29,12 @@ public class CompetenceArea {
     private Set<Service> services;
 
 
+    public CompetenceArea(){}
+
+    public CompetenceArea(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

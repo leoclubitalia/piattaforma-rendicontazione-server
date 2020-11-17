@@ -31,7 +31,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
            "      (a.lionsParticipation = ?6 OR ?6 IS NULL) AND " +
            "      (a.city.id = ?7 OR ?7 IS NULL) AND " +
            "      (a.club.id = ?8 OR ?8 IS NULL) AND " +
+           "      (a.club.district.id = ?10 OR ?10 IS NULL) AND " +
            "      (?9 = t.id OR ?9 IS NULL)" +
            " GROUP BY a " )
-    Page<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer typeActivityId, Pageable pageable);
+    Page<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer typeActivityId, Integer districtId, Pageable pageable);
 }
