@@ -35,7 +35,7 @@ public class ResearchActivity {
 
     @Basic
     @Column(name = "lions_participation")
-    private boolean lionsParticipation;
+    private Boolean lionsParticipation;
 
     @ManyToOne
     @JoinColumn(name = "city")
@@ -102,11 +102,11 @@ public class ResearchActivity {
         this.satisfactionDegree = satisfactionDegree;
     }
 
-    public boolean getLionsParticipation() {
+    public Boolean getLionsParticipation() {
         return this.lionsParticipation;
     }
 
-    public void setLionsParticipation(boolean lionsParticipation) {
+    public void setLionsParticipation(Boolean lionsParticipation) {
         this.lionsParticipation = lionsParticipation;
     }
 

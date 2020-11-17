@@ -88,17 +88,29 @@ public class SearchService {
         research.setStartDate(startDate);
         research.setEndDate(endDate);
         research.setQuantityParticipants(quantityParticipants);
-        research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
         research.setDuration(duration);
         research.setOtherAssociations(otherAssociations);
         research.setMinMoneyRaised(minMoneyRaised);
         research.setMaxMoneyRaised(maxMoneyRaised);
         research.setQuantityServedPeople(quantityServedPeople);
-        research.setCity(new City(cityId));
-        research.setClub(new Club(clubId));
-        research.setTypeService(new TypeService(typeServiceId));
-        research.setCompetenceArea(new CompetenceArea(competenceAreaId));
-        research.setDistrict(new District(districtId));
+        if ( satisfactionDegree != null ) {
+            research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
+        }
+        if ( cityId != null ) {
+            research.setCity(new City(cityId));
+        }
+        if ( clubId != null ) {
+            research.setClub(new Club(clubId));
+        }
+        if ( typeServiceId != null ) {
+            research.setTypeService(new TypeService(typeServiceId));
+        }
+        if ( competenceAreaId != null ) {
+            research.setCompetenceArea(new CompetenceArea(competenceAreaId));
+        }
+        if ( districtId != null ) {
+            research.setDistrict(new District(districtId));
+        }
         researchServiceRepository.save(research);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
@@ -129,12 +141,22 @@ public class SearchService {
         research.setStartDate(startDate);
         research.setEndDate(endDate);
         research.setQuantityLeo(quantityLeo);
-        research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
         research.setLionsParticipation(lionsParticipation);
-        research.setCity(new City(cityId));
-        research.setClub(new Club(clubId));
-        research.setTypeActivity(new TypeActivity(typeActivityId));
-        research.setDistrict(new District(districtId));
+        if ( satisfactionDegree != null ) {
+            research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
+        }
+        if ( cityId != null ) {
+            research.setCity(new City(cityId));
+        }
+        if ( clubId != null ) {
+            research.setClub(new Club(clubId));
+        }
+        if ( typeActivityId != null ) {
+            research.setTypeActivity(new TypeActivity(typeActivityId));
+        }
+        if ( districtId != null ) {
+            research.setDistrict(new District(districtId));
+        }
         researchActivityRepository.save(research);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
