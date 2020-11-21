@@ -7,7 +7,6 @@ import it.leo.rendicontationplatform.support.exceptions.ActivityAlreadyExistExce
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 
 
@@ -24,7 +23,7 @@ public class ActivityService {
         if ( activityRepository.existsActivityByTitleAndDateAndClub(activity.getTitle(), activity.getDate(), activity.getClub()) ) {
             throw new ActivityAlreadyExistException();
         }
-        activity = activityRepository.save(activity);
+        activity = activityRepository.saveAndFlush(activity);
         entityManager.refresh(activity);
         return activity;
     }

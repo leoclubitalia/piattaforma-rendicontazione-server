@@ -58,8 +58,9 @@ public class Activity {
     @JoinColumn(name = "club")
     private Club club;
 
-    @ManyToMany
-    @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "type_activity"), inverseJoinColumns = @JoinColumn(name = "activity"))
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "activity"), inverseJoinColumns = @JoinColumn(name = "type_activity"))
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<TypeActivity> typesActivity;
 
 

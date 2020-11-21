@@ -28,8 +28,8 @@ public class TypeActivity {
     private boolean enabled;
 
     @JsonIgnore
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "activity"), inverseJoinColumns = @JoinColumn(name = "type_activity"))
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(name = "r_type_activity", joinColumns = @JoinColumn(name = "type_activity"), inverseJoinColumns = @JoinColumn(name = "activity"))
     private Set<Activity> activities;
 
 
