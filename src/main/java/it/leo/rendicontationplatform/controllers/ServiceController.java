@@ -21,6 +21,7 @@ public class ServiceController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid Service service) {
+        //TODO get and put club id from principal
         try {
             Service added = serviceService.addService(service);
             return new ResponseEntity(added, HttpStatus.OK);

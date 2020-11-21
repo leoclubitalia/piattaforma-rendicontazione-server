@@ -21,6 +21,7 @@ public class ActivityController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid Activity activity) {
+        //TODO get and put club id from principal
         try {
             Activity added = activityService.addActivity(activity);
             return new ResponseEntity(added, HttpStatus.OK);
