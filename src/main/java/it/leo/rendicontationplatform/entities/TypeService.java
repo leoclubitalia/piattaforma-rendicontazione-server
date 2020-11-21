@@ -2,10 +2,14 @@ package it.leo.rendicontationplatform.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "type_service", schema = "rendicontation")
 public class TypeService {
@@ -33,38 +37,6 @@ public class TypeService {
 
     public TypeService(int id){
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Set<Service> getServices() {
-        return services;
-    }
-
-    public void setServices(Set<Service> services) {
-        this.services = services;
     }
 
 

@@ -1,10 +1,14 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "research_activity", schema = "rendicontation")
 public class ResearchActivity {
@@ -52,95 +56,6 @@ public class ResearchActivity {
     @ManyToOne
     @JoinColumn(name = "district")
     private District district;
-
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getStartDate() {
-        return this.startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return this.endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Integer getQuantityLeo() {
-        return this.quantityLeo;
-    }
-
-    public void setQuantityLeo(Integer quantityLeo) {
-        this.quantityLeo = quantityLeo;
-    }
-
-    public SatisfactionDegree getSatisfactionDegree() {
-        return this.satisfactionDegree;
-    }
-
-    public void setSatisfactionDegree(SatisfactionDegree satisfactionDegree) {
-        this.satisfactionDegree = satisfactionDegree;
-    }
-
-    public Boolean getLionsParticipation() {
-        return this.lionsParticipation;
-    }
-
-    public void setLionsParticipation(Boolean lionsParticipation) {
-        this.lionsParticipation = lionsParticipation;
-    }
-
-    public City getCity() {
-        return this.city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Club getClub() {
-        return this.club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
-
-    public TypeActivity getTypeActivity() {
-        return this.typeActivity;
-    }
-
-    public void setTypeActivity(TypeActivity typeActivity) {
-        this.typeActivity = typeActivity;
-    }
-
-    public District getDistrict() {
-        return this.district;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
-    }
 
 
 }

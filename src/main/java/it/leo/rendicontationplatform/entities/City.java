@@ -1,10 +1,14 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "city", schema = "rendicontation")
 public class City {
@@ -26,30 +30,6 @@ public class City {
 
     public City(int id){
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Cap> getCaps() {
-        return caps;
-    }
-
-    public void setCaps(Set<Cap> caps) {
-        this.caps = caps;
     }
 
 

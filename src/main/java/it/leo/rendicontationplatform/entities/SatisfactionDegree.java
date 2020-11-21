@@ -2,10 +2,13 @@ package it.leo.rendicontationplatform.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "satisfaction_degree", schema = "rendicontation")
 public class SatisfactionDegree {
@@ -28,30 +31,6 @@ public class SatisfactionDegree {
 
     public SatisfactionDegree(int id){
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
 

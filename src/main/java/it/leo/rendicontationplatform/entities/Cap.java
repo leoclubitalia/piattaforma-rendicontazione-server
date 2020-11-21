@@ -1,10 +1,14 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "cap", schema = "rendicontation")
 public class Cap {
@@ -21,31 +25,6 @@ public class Cap {
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "city_cap", joinColumns = @JoinColumn(name = "cap"), inverseJoinColumns = @JoinColumn(name = "city"))
     private Set<City> cities;
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public Set<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(Set<City> cities) {
-        this.cities = cities;
-    }
 
 
 }

@@ -2,11 +2,14 @@ package it.leo.rendicontationplatform.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "club", schema = "rendicontation")
 public class Club {
@@ -45,62 +48,6 @@ public class Club {
 
     public Club(int id){
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getFoundationDate() {
-        return foundationDate;
-    }
-
-    public void setFoundationDate(Date foundationDate) {
-        this.foundationDate = foundationDate;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public District getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
     }
 
 
