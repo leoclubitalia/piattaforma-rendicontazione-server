@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +83,12 @@ public class SearchService {
     @Transactional(readOnly = false)
     public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
+        if ( endDate != null ) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endDate);
+            calendar.add(Calendar.DATE, 1);
+            endDate = calendar.getTime();
+        }
         Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate, quantityParticipants, satisfactionDegree, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
         ResearchService research = new ResearchService();
         research.setTitle(title);
@@ -135,7 +142,13 @@ public class SearchService {
     @Transactional(readOnly = false)
     public List<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer typeActivityId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
-        Page<Activity> pagedResult = activityRepository.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, typeActivityId, districtId, paging);
+        if ( endDate != null ) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endDate);
+            calendar.add(Calendar.DATE, 1);
+            endDate = calendar.getTime();
+        }
+        Page<Activity> pagedResult = activityRepository.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, districtId, typeActivityId, paging);
         ResearchActivity research = new ResearchActivity();
         research.setTitle(title);
         research.setStartDate(startDate);
