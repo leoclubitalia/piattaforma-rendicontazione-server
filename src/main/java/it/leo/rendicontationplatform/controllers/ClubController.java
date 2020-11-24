@@ -1,10 +1,13 @@
 package it.leo.rendicontationplatform.controllers;
 
 
+import it.leo.rendicontationplatform.entities.Club;
+import it.leo.rendicontationplatform.services.ClubService;
 import it.leo.rendicontationplatform.services.RetrieveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class ClubController {
     @Autowired
     private RetrieveService retrieveService;
+    @Autowired
+    private ClubService clubService;
 
 
     @GetMapping("/details")
@@ -28,6 +33,18 @@ public class ClubController {
     @GetMapping("/quantity_activities_made")
     public ResponseEntity getActivitiesQuantity(int clubId) {
         return new ResponseEntity(retrieveService.getQuantityActivities(clubId), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/quantity_current_partners")
+    public ResponseEntity updateCurrentPartnersQuantity(int clubId, int newQuantity) {
+        //TODO get and put club id from principal
+        return new ResponseEntity(clubService.updateCurrentPartnersQuantity(clubId, newQuantity), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/quantity_aspirant_partners")
+    public ResponseEntity updateAspirantPartnersQuantity(int clubId, int newQuantity) {
+        //TODO get and put club id from principal
+        return new ResponseEntity(clubService.updateAspirantPartnersQuantity(clubId, newQuantity), HttpStatus.OK);
     }
 
 

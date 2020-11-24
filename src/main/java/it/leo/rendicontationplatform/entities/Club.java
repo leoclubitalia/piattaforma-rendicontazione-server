@@ -35,6 +35,14 @@ public class Club {
     @Column(name = "foundation_date", nullable = true)
     private Date foundationDate;
 
+    @Basic
+    @Column(name = "current_partners", nullable = true)
+    private Integer currentPartners;
+
+    @Basic
+    @Column(name = "aspirant_partners", nullable = true)
+    private Integer aspirantPartners;
+
     @ManyToOne
     @JoinColumn(name = "city")
     private City city;
@@ -42,6 +50,11 @@ public class Club {
     @ManyToOne
     @JoinColumn(name = "district")
     private District district;
+
+    @Version
+    @Column(name = "version", nullable = false)
+    @JsonIgnore
+    private long version;
 
 
     public Club(){}
