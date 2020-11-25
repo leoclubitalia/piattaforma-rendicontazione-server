@@ -35,16 +35,16 @@ public class ClubController {
         return new ResponseEntity(retrieveService.getQuantityActivities(clubId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/quantity_current_partners")
-    public ResponseEntity updateCurrentPartnersQuantity(int clubId, int newQuantity) {
+    @PutMapping("/update/quantity_current_members")
+    public ResponseEntity updateCurrentMembersQuantity(int clubId, int newQuantity) {
         //TODO get and put club id from principal
-        return new ResponseEntity(clubService.updateCurrentPartnersQuantity(clubId, newQuantity), HttpStatus.OK);
+        return new ResponseEntity(clubService.updateCurrentMembersQuantity(clubId, newQuantity), HttpStatus.OK);
     }
 
-    @PutMapping("/update/quantity_aspirant_partners")
-    public ResponseEntity updateAspirantPartnersQuantity(int clubId, int newQuantity) {
+    @PutMapping("/update/quantity_aspirant_members")
+    public ResponseEntity updateAspirantMembersQuantity(int clubId, int newQuantity) {
         //TODO get and put club id from principal
-        return new ResponseEntity(clubService.updateAspirantPartnersQuantity(clubId, newQuantity), HttpStatus.OK);
+        return new ResponseEntity(clubService.updateAspirantMembersQuantity(clubId, newQuantity), HttpStatus.OK);
     }
 
 

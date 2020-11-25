@@ -36,12 +36,12 @@ public class Club {
     private Date foundationDate;
 
     @Basic
-    @Column(name = "current_partners", nullable = true)
-    private Integer currentPartners;
+    @Column(name = "current_members", nullable = true)
+    private Integer currentMembers;
 
     @Basic
-    @Column(name = "aspirant_partners", nullable = true)
-    private Integer aspirantPartners;
+    @Column(name = "aspirant_members", nullable = true)
+    private Integer aspirantMembers;
 
     @ManyToOne
     @JoinColumn(name = "city")
