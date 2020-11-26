@@ -7,21 +7,23 @@ USE rendicontation;
 
 CREATE TABLE district (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(20),
-	enabled BOOLEAN,
+	name VARCHAR(20) NOT NULL,
+	enabled BOOLEAN DEFAULT TRUE,
 	UNIQUE (name)
 );
 
 CREATE TABLE cap (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	number VARCHAR(7),
+	number VARCHAR(7) NOT NULL,
     UNIQUE (number)
 );
 
 CREATE TABLE city (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(50)
+	name VARCHAR(50) NOT NULL
 );
+
+CREATE INDEX city_name_index ON city (name);
 
 CREATE TABLE city_cap (
 	cap INTEGER,
@@ -33,14 +35,14 @@ CREATE TABLE city_cap (
 
 CREATE TABLE club (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	enabled BOOLEAN,
-	name VARCHAR(150),
-	email VARCHAR(150),
-	city INTEGER,
-	current_members INTEGER,
-	aspirant_members INTEGER,
-	district INTEGER,
-	foundation_date DATE,
+	enabled BOOLEAN DEFAULT TRUE,
+	name VARCHAR(150) NOT NULL,
+	email VARCHAR(150) NOT NULL,
+	city INTEGER NOT NULL,
+	current_members INTEGER DEFAULT 0,
+	aspirant_members INTEGER DEFAULT 0,
+	district INTEGER NOT NULL,
+	foundation_date DATE NOT NULL,
 	version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (district) REFERENCES district (id),
@@ -52,34 +54,37 @@ CREATE TABLE club (
 
 CREATE TABLE satisfaction_degree (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(70),
-	enabled BOOLEAN,
+	name VARCHAR(70) NOT NULL,
+	enabled BOOLEAN DEFAULT TRUE,
     UNIQUE (name)
 );
 
 CREATE TABLE type_activity (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(70),
-	enabled BOOLEAN,
+	name VARCHAR(70) NOT NULL,
+	enabled BOOLEAN DEFAULT TRUE,
     UNIQUE (name)
 );
 
 CREATE TABLE activity (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(50),
-	description VARCHAR(500),
-	date DATE,
-	quantity_leo INTEGER,
-	lions_participation BOOLEAN,
-	satisfaction_degree INTEGER,
-	city INTEGER,
-	club INTEGER,
+	title VARCHAR(50) NOT NULL,
+	description VARCHAR(500) NOT NULL,
+	date DATE NOT NULL,
+	quantity_leo INTEGER NOT NULL,
+	lions_participation BOOLEAN NOT NULL,
+	satisfaction_degree INTEGER NOT NULL,
+	city INTEGER NOT NULL,
+	club INTEGER NOT NULL,
     version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id),
 	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
 	UNIQUE (title, date, club)
 );
+
+CREATE INDEX activity_date_index ON activity (date);
+CREATE INDEX activity_club_index ON activity (club);
 
 CREATE TABLE r_type_activity (
 	activity INTEGER,
@@ -93,38 +98,41 @@ CREATE TABLE r_type_activity (
 
 CREATE TABLE type_service (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(70),
-	enabled BOOLEAN,
+	name VARCHAR(70) NOT NULL,
+	enabled BOOLEAN DEFAULT TRUE,
     UNIQUE (name)
 );
 
 CREATE TABLE competence_area (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(70),
-	enabled BOOLEAN,
+	name VARCHAR(70) NOT NULL,
+	enabled BOOLEAN DEFAULT TRUE,
     UNIQUE (name)
 );
 
 CREATE TABLE service (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(50),
-	description VARCHAR(500),
-	date DATE,
+	title VARCHAR(50) NOT NULL,
+	description VARCHAR(500) NOT NULL,
+	date DATE NOT NULL,
 	quantity_participants INTEGER,
-	satisfaction_degree INTEGER,
-	impact INTEGER,
+	satisfaction_degree INTEGER NOT NULL,
+	impact INTEGER NOT NULL,
 	duration INTEGER,
 	other_associations VARCHAR(400),
 	money_raised FLOAT,
 	quantity_served_people INTEGER,
-	city INTEGER,
-	club INTEGER,
+	city INTEGER NOT NULL,
+	club INTEGER NOT NULL,
     version LONG,
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id),
 	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
     UNIQUE (title, date, club)
 );
+
+CREATE INDEX service_date_index ON service (date);
+CREATE INDEX service_club_index ON service (club);
 
 CREATE TABLE r_type_service (
 	service INTEGER,
