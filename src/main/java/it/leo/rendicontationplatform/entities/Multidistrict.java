@@ -10,8 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "district", schema = "rendicontation")
-public class District {
+public class Multidistrict {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,18 +24,5 @@ public class District {
     @JsonIgnore
     @Column(name = "enabled", nullable = true)
     private boolean enabled;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "multidistrict")
-    private Multidistrict multidistrict;
-
-
-    public District(){}
-
-    public District(int id){
-        this.id = id;
-    }
-
 
 }

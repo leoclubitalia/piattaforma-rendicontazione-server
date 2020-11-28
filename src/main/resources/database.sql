@@ -5,11 +5,20 @@ USE rendicontation;
 
 -- Club
 
-CREATE TABLE district (
+CREATE TABLE multidistrict (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(20) NOT NULL,
 	enabled BOOLEAN DEFAULT TRUE,
 	UNIQUE (name)
+);
+
+CREATE TABLE district (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(20) NOT NULL,
+	enabled BOOLEAN DEFAULT TRUE,
+	multidistrict INTEGER NOT NULL,
+	FOREIGN KEY (multidistrict) REFERENCES multidistrict (id),
+	UNIQUE (multidistrict, name)
 );
 
 CREATE TABLE cap (
@@ -49,6 +58,11 @@ CREATE TABLE club (
     UNIQUE (name),
     UNIQUE (email)
 );
+
+CREATE INDEX club_enabled_index ON club (enabled);
+CREATE INDEX club_name_index ON club (name);
+CREATE INDEX club_email_index ON club (email);
+CREATE INDEX club_dstrict_index ON club (district);
 
 -- Activity
 
