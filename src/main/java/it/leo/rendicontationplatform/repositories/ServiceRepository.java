@@ -30,13 +30,13 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "      (s.satisfactionDegree.id = ?5 OR ?5 IS NULL) AND " +
            "      (s.duration = ?6 OR ?6 IS NULL) AND " +
            "      (s.otherAssociations LIKE ?7 OR ?7 IS NULL) AND " +
-           "      ((s.moneyRaised >= ?8 AND s.moneyRaised <= ?9) OR (s.moneyRaised >= ?8 AND ?9 IS NULL) OR (s.moneyRaised <= ?9 AND ?8 IS NULL) OR (?8 IS NULL AND ?9 IS NULL)) AND " +
-           "      (s.quantityServedPeople >= ?10 OR ?10 IS NULL) AND " +
-           "      (s.city.id = ?11 OR ?11 IS NULL) AND " +
-           "      (s.club.id = ?12 OR ?12 IS NULL) AND " +
-           "      (s.club.district.id = ?15 OR ?15 IS NULL) AND " +
-           "      (?13 = t.id OR ?13 IS NULL) AND " +
-           "      (?14 = c.id OR ?14 IS NULL) " +
+           "      (s.moneyOrMaterialCollected LIKE ?8 OR ?8 IS NULL) AND " +
+           "      (s.quantityServedPeople >= ?9 OR ?9 IS NULL) AND " +
+           "      (s.city.id = ?10 OR ?10 IS NULL) AND " +
+           "      (s.club.id = ?11 OR ?11 IS NULL) AND " +
+           "      (s.club.district.id = ?14 OR ?14 IS NULL) AND " +
+           "      (?12 = t.id OR ?12 IS NULL) AND " +
+           "      (?13 = c.id OR ?13 IS NULL) " +
            "GROUP BY s ")
-    Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
+    Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, String moneyOrMaterialCollected, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
 }

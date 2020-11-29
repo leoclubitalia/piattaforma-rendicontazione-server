@@ -46,12 +46,8 @@ public class ResearchService {
     private String otherAssociations;
 
     @Basic
-    @Column(name = "min_money_raised")
-    private Float minMoneyRaised;
-
-    @Basic
-    @Column(name = "max_money_raised")
-    private Float maxMoneyRaised;
+    @Column(name = "money_or_material_collected")
+    private String moneyOrMaterialCollected;
 
     @Basic
     @Column(name = "quantity_served_people")

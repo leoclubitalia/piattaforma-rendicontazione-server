@@ -28,5 +28,10 @@ public class ClubService {
         return club;
     }
 
+    @Transactional(readOnly = true)
+    public Club getClubByEmail(String email) {
+        return clubRepository.findClubByEmail(email);
+    }
+
 
 }

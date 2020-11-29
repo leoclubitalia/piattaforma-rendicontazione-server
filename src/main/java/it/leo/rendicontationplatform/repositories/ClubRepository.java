@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Integer> {
     Club findClubByName(String name);
+    Club findClubByEmail(String email);
     Club findClubById(int id);
     List<Club> findClubByDistrict(District district);
     List<Club> findClubsByNameContainingIgnoreCase(String name);

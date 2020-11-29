@@ -35,23 +35,23 @@ public class Service {
 
     @Basic
     @Column(name = "quantity_participants", nullable = true)
-    private int quantityParticipants;
+    private Integer quantityParticipants;
 
     @Basic
     @Column(name = "duration", nullable = true)
-    private int duration;
+    private Integer duration;
 
     @Basic
     @Column(name = "other_associations", nullable = true, length = 400)
     private String otherAssociations;
 
     @Basic
-    @Column(name = "money_raised", nullable = true)
-    private float moneyRaised;
+    @Column(name = "money_or_material_collected", nullable = true)
+    private String moneyOrMaterialCollected;
 
     @Basic
     @Column(name = "quantity_served_people", nullable = true)
-    private int quantityServedPeople;
+    private Integer quantityServedPeople;
 
     @Version
     @Column(name = "version", nullable = false)

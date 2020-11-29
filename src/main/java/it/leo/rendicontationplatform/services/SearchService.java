@@ -81,15 +81,15 @@ public class SearchService {
     }
 
     @Transactional(readOnly = false)
-    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, Float minMoneyRaised, Float maxMoneyRaised, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
+    public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, String moneyOrMaterialCollected, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
         if ( endDate != null ) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(endDate);
-            calendar.add(Calendar.DATE, 1);
+            calendar.add(Calendar.HOUR, 23);
             endDate = calendar.getTime();
         }
-        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate, quantityParticipants, satisfactionDegree, duration, otherAssociations, minMoneyRaised, maxMoneyRaised, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
+        Page<Service> pagedResult = serviceRepository.findServicesAdvanced(title, startDate, endDate, quantityParticipants, satisfactionDegree, duration, otherAssociations, moneyOrMaterialCollected, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, paging);
         ResearchService research = new ResearchService();
         research.setTitle(title);
         research.setStartDate(startDate);
@@ -97,8 +97,7 @@ public class SearchService {
         research.setQuantityParticipants(quantityParticipants);
         research.setDuration(duration);
         research.setOtherAssociations(otherAssociations);
-        research.setMinMoneyRaised(minMoneyRaised);
-        research.setMaxMoneyRaised(maxMoneyRaised);
+        research.setMoneyOrMaterialCollected(moneyOrMaterialCollected);
         research.setQuantityServedPeople(quantityServedPeople);
         if ( satisfactionDegree != null ) {
             research.setSatisfactionDegree(new SatisfactionDegree(satisfactionDegree));
@@ -145,7 +144,7 @@ public class SearchService {
         if ( endDate != null ) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(endDate);
-            calendar.add(Calendar.DATE, 1);
+            calendar.add(Calendar.HOUR, 23);
             endDate = calendar.getTime();
         }
         Page<Activity> pagedResult = activityRepository.findActivitiesAdvanced(title, startDate, endDate, quantityLeo, satisfactionDegree, lionsParticipation, cityId, clubId, districtId, typeActivityId, paging);
