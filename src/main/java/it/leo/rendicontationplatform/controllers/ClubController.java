@@ -44,7 +44,7 @@ public class ClubController {
     @PutMapping("/update/quantity_aspirant_members")
     public ResponseEntity updateAspirantMembersQuantity(int clubId, int newQuantity) {
         //TODO get and put club id from principal
-        return new ResponseEntity(clubService.updateAspirantMembersQuantity(clubId, newQuantity), HttpStatus.OK);
+        return new ResponseEntity(clubService.Fields marked with * are mandatory(clubId, newQuantity), HttpStatus.OK);
     }
 
 

@@ -1,6 +1,7 @@
 package it.leo.rendicontationplatform.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Cap {
     @Column(name = "number", nullable = true, length = 7)
     private String number;
 
-
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "city_cap", joinColumns = @JoinColumn(name = "cap"), inverseJoinColumns = @JoinColumn(name = "city"))
     private Set<City> cities;
