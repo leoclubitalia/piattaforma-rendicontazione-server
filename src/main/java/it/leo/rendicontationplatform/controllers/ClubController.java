@@ -36,13 +36,13 @@ public class ClubController {
         return new ResponseEntity(retrieveService.getQuantityActivities(clubId), HttpStatus.OK);
     }
 
-    @PutMapping("/update/quantity_current_members")
+    @GetMapping("/update/quantity_current_members") // it should be a put but doesnt work with flutter web
     public ResponseEntity updateCurrentMembersQuantity(int clubId, int newQuantity) {
         //TODO get and put club id from principal
         return new ResponseEntity(clubService.updateCurrentMembersQuantity(clubId, newQuantity), HttpStatus.OK);
     }
 
-    @PutMapping("/update/quantity_aspirant_members")
+    @GetMapping("/update/quantity_aspirant_members") // it should be a put but doesnt work with flutter web
     public ResponseEntity updateAspirantMembersQuantity(int clubId, int newQuantity) {
         //TODO get and put club id from principal
         return new ResponseEntity(clubService.updateAspirantMembersQuantity(clubId, newQuantity), HttpStatus.OK);
