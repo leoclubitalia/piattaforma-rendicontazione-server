@@ -19,8 +19,9 @@ public class ClubController {
 
 
     @GetMapping("/details")
-    public ResponseEntity getInfoClub(int id) {
+    public ResponseEntity getInfoClub() {
         //TODO get and put club id from principal
+        int id = 1; //get it from principal
         return new ResponseEntity(retrieveService.getInfoClub(id), HttpStatus.OK);
     }
 
