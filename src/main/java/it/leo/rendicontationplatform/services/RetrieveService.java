@@ -36,21 +36,23 @@ public class RetrieveService {
 
 
     @Transactional(readOnly = true)
-    public Club getInfoClub(int idClub) {
-        return clubRepository.findClubById(idClub);
+    public Club getInfoClub(String email) {
+        return clubRepository.findClubByEmail(email);
     }
 
     @Transactional(readOnly = true)
-    public Map<String, Integer> getQuantityServices(int id) {
+    public Map<String, Integer> getQuantityServices(String email) {
         Map<String, Integer> result = new HashMap<>();
+        int id = clubRepository.findClubByEmail(email).getId();
         result.put("all", serviceRepository.countServicesByClubId(id));
         result.put("current_year", serviceRepository.countAllServicesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
         return result;
     }
 
     @Transactional(readOnly = true)
-    public Map<String, Integer> getQuantityActivities(int id) {
+    public Map<String, Integer> getQuantityActivities(String email) {
         Map<String, Integer> result = new HashMap<>();
+        int id = clubRepository.findClubByEmail(email).getId();
         result.put("all", activityRepository.countActivitiesByClubId(id));
         result.put("current_year", activityRepository.countAllActivitiesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
         return result;

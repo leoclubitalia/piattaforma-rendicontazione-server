@@ -15,15 +15,15 @@ public class ClubService {
 
 
     @Transactional(readOnly = false)
-    public Club updateCurrentMembersQuantity(int clubId, int newQuantity) {
-        Club club = clubRepository.findClubById(clubId);
+    public Club updateCurrentMembersQuantity(String email, int newQuantity) {
+        Club club = clubRepository.findClubByEmail(email);
         club.setCurrentMembers(newQuantity);
         return club;
     }
 
     @Transactional(readOnly = false)
-    public Club updateAspirantMembersQuantity(int clubId, int newQuantity) {
-        Club club = clubRepository.findClubById(clubId);
+    public Club updateAspirantMembersQuantity(String email, int newQuantity) {
+        Club club = clubRepository.findClubByEmail(email);
         club.setAspirantMembers(newQuantity);
         return club;
     }

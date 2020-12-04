@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.annotation.security.RolesAllowed;
+import java.security.Principal;
 
 
 @RestController
@@ -18,35 +20,34 @@ public class ClubController {
     private ClubService clubService;
 
 
+    @RolesAllowed("club")
     @GetMapping("/details")
-    public ResponseEntity getInfoClub() {
-        //TODO get and put club id from principal
-        int id = 1; //get it from principal
-        return new ResponseEntity(retrieveService.getInfoClub(id), HttpStatus.OK);
+    public ResponseEntity getInfoClub(Principal principal) {
+        return new ResponseEntity(retrieveService.getInfoClub(principal.getName()), HttpStatus.OK);
     }
 
+    @RolesAllowed("club")
     @GetMapping("/quantity_services_made")
-    public ResponseEntity getServicesQuantity(int clubId) {
-        //TODO get and put club id from principal
-        return new ResponseEntity(retrieveService.getQuantityServices(clubId), HttpStatus.OK);
+    public ResponseEntity getServicesQuantity(Principal principal) {
+        return new ResponseEntity(retrieveService.getQuantityServices(principal.getName()), HttpStatus.OK);
     }
 
+    @RolesAllowed("club")
     @GetMapping("/quantity_activities_made")
-    public ResponseEntity getActivitiesQuantity(int clubId) {
-        //TODO get and put club id from principal
-        return new ResponseEntity(retrieveService.getQuantityActivities(clubId), HttpStatus.OK);
+    public ResponseEntity getActivitiesQuantity(Principal principal) {
+        return new ResponseEntity(retrieveService.getQuantityActivities(principal.getName()), HttpStatus.OK);
     }
 
+    @RolesAllowed("club")
     @GetMapping("/update/quantity_current_members") // it should be a put but doesn't work with flutter web
-    public ResponseEntity updateCurrentMembersQuantity(int clubId, int newQuantity) {
-        //TODO get and put club id from principal
-        return new ResponseEntity(clubService.updateCurrentMembersQuantity(clubId, newQuantity), HttpStatus.OK);
+    public ResponseEntity updateCurrentMembersQuantity(Principal principal, int newQuantity) {
+        return new ResponseEntity(clubService.updateCurrentMembersQuantity(principal.getName(), newQuantity), HttpStatus.OK);
     }
 
+    @RolesAllowed("club")
     @GetMapping("/update/quantity_aspirant_members") // it should be a put but doesn't work with flutter web
-    public ResponseEntity updateAspirantMembersQuantity(int clubId, int newQuantity) {
-        //TODO get and put club id from principal
-        return new ResponseEntity(clubService.updateAspirantMembersQuantity(clubId, newQuantity), HttpStatus.OK);
+    public ResponseEntity updateAspirantMembersQuantity(Principal principal, int newQuantity) {
+        return new ResponseEntity(clubService.updateAspirantMembersQuantity(principal.getName(), newQuantity), HttpStatus.OK);
     }
 
 
