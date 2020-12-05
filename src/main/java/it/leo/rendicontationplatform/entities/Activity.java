@@ -21,24 +21,24 @@ public class Activity {
     private int id;
 
     @Basic
-    @Column(name = "title", nullable = true, length = 50)
+    @Column(name = "title", nullable = false, length = 50)
     private String title;
 
     @Basic
-    @Column(name = "description", nullable = true, length = 500)
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
 
     @Basic
-    @Column(name = "date", nullable = true)
+    @Column(name = "date", nullable = false)
     @JsonFormat(pattern="ddMMyyyy")
     private Date date;
 
     @Basic
-    @Column(name = "quantity_leo", nullable = true)
+    @Column(name = "quantity_leo", nullable = false)
     private int quantityLeo;
 
     @Basic
-    @Column(name = "lions_participation", nullable = true)
+    @Column(name = "lions_participation", nullable = false)
     private boolean lionsParticipation;
 
     @ManyToOne

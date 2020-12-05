@@ -21,15 +21,15 @@ public class Service {
     private int id;
 
     @Basic
-    @Column(name = "title", nullable = true, length = 50)
+    @Column(name = "title", nullable = false, length = 50)
     private String title;
 
     @Basic
-    @Column(name = "description", nullable = true, length = 500)
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
 
     @Basic
-    @Column(name = "date", nullable = true)
+    @Column(name = "date", nullable = false)
     @JsonFormat(pattern="ddMMyyyy")
     private Date date;
 

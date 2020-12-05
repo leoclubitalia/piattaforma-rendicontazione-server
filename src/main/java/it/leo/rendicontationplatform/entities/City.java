@@ -18,7 +18,7 @@ public class City {
     private int id;
 
     @Basic
-    @Column(name = "name", nullable = true, length = 50)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})

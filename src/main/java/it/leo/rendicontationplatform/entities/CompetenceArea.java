@@ -19,7 +19,7 @@ public class CompetenceArea {
     private int id;
 
     @Basic
-    @Column(name = "name", nullable = true, length = 70)
+    @Column(name = "name", nullable = false, length = 70)
     private String name;
 
     @Basic

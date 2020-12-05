@@ -19,7 +19,7 @@ public class Cap {
     private int id;
 
     @Basic
-    @Column(name = "number", nullable = true, length = 7)
+    @Column(name = "number", nullable = false, length = 7)
     private String number;
 
     @JsonIgnore

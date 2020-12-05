@@ -20,27 +20,27 @@ public class Club {
 
     @Basic
     @JsonIgnore
-    @Column(name = "enabled", nullable = true)
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
     @Basic
-    @Column(name = "name", nullable = true, length = 150)
+    @Column(name = "name", nullable = false, length = 150)
     private String name;
 
     @Basic
-    @Column(name = "email", nullable = true, length = 150)
+    @Column(name = "email", nullable = false, length = 150)
     private String email;
 
     @Basic
-    @Column(name = "foundation_date", nullable = true)
+    @Column(name = "foundation_date", nullable = false)
     private Date foundationDate;
 
     @Basic
-    @Column(name = "current_members", nullable = true)
+    @Column(name = "current_members", nullable = false)
     private Integer currentMembers;
 
     @Basic
-    @Column(name = "aspirant_members", nullable = true)
+    @Column(name = "aspirant_members", nullable = false)
     private Integer aspirantMembers;
 
     @ManyToOne
