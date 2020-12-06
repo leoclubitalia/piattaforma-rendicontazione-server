@@ -47,7 +47,7 @@ CREATE TABLE club (
 	enabled BOOLEAN DEFAULT TRUE,
 	name VARCHAR(150) NOT NULL,
 	email VARCHAR(150) NOT NULL,
-	city INTEGER NOT NULL,
+	city INTEGER,
 	current_members INTEGER DEFAULT 0,
 	aspirant_members INTEGER DEFAULT 0,
 	district INTEGER NOT NULL,
