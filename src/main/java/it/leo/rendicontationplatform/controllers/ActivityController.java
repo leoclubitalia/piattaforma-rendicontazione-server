@@ -4,15 +4,15 @@ package it.leo.rendicontationplatform.controllers;
 import it.leo.rendicontationplatform.entities.Activity;
 import it.leo.rendicontationplatform.services.ActivityService;
 import it.leo.rendicontationplatform.support.Constants;
+import it.leo.rendicontationplatform.support.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ActivityAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddActivityForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.security.Principal;
 
 
 @RestController
@@ -22,11 +22,11 @@ public class ActivityController {
     private ActivityService activityService;
 
 
-    @RolesAllowed("club")
+    @PreAuthorize("hasAuthority('club')")
     @PostMapping
-    public ResponseEntity create(Principal principal, @RequestBody @Valid Activity activity) {
+    public ResponseEntity create(@RequestBody @Valid Activity activity) {
         try {
-            Activity added = activityService.addActivity(principal.getName(), activity);
+            Activity added = activityService.addActivity(Utils.getEmail(), activity);
             return new ResponseEntity(added, HttpStatus.OK);
         }
         catch ( ActivityAlreadyExistException e ) {
@@ -37,7 +37,7 @@ public class ActivityController {
         }
     }
 
-    @RolesAllowed("club")
+    @PreAuthorize("hasAuthority('club')")
     @PutMapping
     public ResponseEntity edit(@RequestBody @Valid Activity activity) {
         // return new ResponseEntity(activityService.editActivity(activity), HttpStatus.OK);

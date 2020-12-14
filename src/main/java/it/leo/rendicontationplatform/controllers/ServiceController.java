@@ -4,15 +4,15 @@ package it.leo.rendicontationplatform.controllers;
 import it.leo.rendicontationplatform.entities.Service;
 import it.leo.rendicontationplatform.services.ServiceService;
 import it.leo.rendicontationplatform.support.Constants;
+import it.leo.rendicontationplatform.support.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddServiceForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.security.Principal;
 
 
 @RestController
@@ -22,11 +22,11 @@ public class ServiceController {
     private ServiceService serviceService;
 
 
-    @RolesAllowed("club")
+    @PreAuthorize("hasAuthority('club')")
     @PostMapping
-    public ResponseEntity create(Principal principal, @RequestBody @Valid Service service) {
+    public ResponseEntity create(@RequestBody @Valid Service service) {
         try {
-            Service added = serviceService.addService(principal.getName(), service);
+            Service added = serviceService.addService(Utils.getEmail(), service);
             return new ResponseEntity(added, HttpStatus.OK);
         }
         catch ( ServiceAlreadyExistException e ) {
@@ -37,9 +37,9 @@ public class ServiceController {
         }
     }
 
-    @RolesAllowed("club")
+    @PreAuthorize("hasAuthority('club')")
     @PutMapping
-    public ResponseEntity edit(Principal principal, @RequestBody @Valid Service service) {
+    public ResponseEntity edit(@RequestBody @Valid Service service) {
         //return new ResponseEntity(serviceService.editService(service), HttpStatus.OK);
         return new ResponseEntity(null, HttpStatus.FORBIDDEN);
     }

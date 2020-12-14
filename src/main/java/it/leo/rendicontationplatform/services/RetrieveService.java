@@ -129,11 +129,15 @@ public class RetrieveService {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
         if (calendar.get(Calendar.MONTH) < 7 ) {
-            calendar.set(calendar.get(calendar.YEAR) - 1, 7, 1);
+            calendar.set(calendar.get(calendar.YEAR) - 1, 6, 1);
         }
         else {
-            calendar.set(calendar.get(calendar.YEAR), 7, 1);
+            calendar.set(calendar.get(calendar.YEAR), 6, 1);
         }
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.SECOND, calendar.get(calendar.SECOND) - 1);
         return calendar.getTime();
     }
 
