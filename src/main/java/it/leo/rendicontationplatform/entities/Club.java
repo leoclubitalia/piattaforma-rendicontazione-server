@@ -32,6 +32,7 @@ public class Club {
     private String email;
 
     @Basic
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "foundation_date", nullable = false)
     private Date foundationDate;
 

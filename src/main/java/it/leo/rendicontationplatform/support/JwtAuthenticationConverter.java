@@ -1,4 +1,4 @@
-package it.leo.rendicontationplatform.configurations;
+package it.leo.rendicontationplatform.support;
 
 
 import org.springframework.beans.factory.annotation.Value;

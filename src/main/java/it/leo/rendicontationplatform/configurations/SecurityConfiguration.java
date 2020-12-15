@@ -1,6 +1,7 @@
 package it.leo.rendicontationplatform.configurations;
 
 
+import it.leo.rendicontationplatform.support.JwtAuthenticationConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;

@@ -80,5 +80,26 @@ public class Service {
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<CompetenceArea> competenceAreasService;
 
+    @Override
+    public String toString() {
+        return "Service{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", quantityParticipants=" + quantityParticipants +
+                ", duration=" + duration +
+                ", otherAssociations='" + otherAssociations + '\'' +
+                ", moneyOrMaterialCollected='" + moneyOrMaterialCollected + '\'' +
+                ", quantityServedPeople=" + quantityServedPeople +
+                ", version=" + version +
+                ", city=" + city +
+                ", club=" + club +
+                ", satisfactionDegree=" + satisfactionDegree +
+                ", typesService=" + typesService +
+                ", competenceAreasService=" + competenceAreasService +
+                '}';
+    }
+
 
 }
