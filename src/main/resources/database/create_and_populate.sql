@@ -20696,11 +20696,12 @@ INSERT INTO satisfaction_degree (name) VALUES ("limitato");
 INSERT INTO satisfaction_degree (name) VALUES ("moderato");
 INSERT INTO satisfaction_degree (name) VALUES ("elevato");
 
-INSERT INTO competence_area (name) VALUES ("ambiente");
-INSERT INTO competence_area (name) VALUES ("giovani");
-INSERT INTO competence_area (name) VALUES ("comunita'");
-INSERT INTO competence_area (name) VALUES ("vista");
+INSERT INTO competence_area (name) VALUES ("Altro");
+INSERT INTO competence_area (name) VALUES ("Ambiente");
+INSERT INTO competence_area (name) VALUES ("Giovani");
+INSERT INTO competence_area (name) VALUES ("Comunità");
+INSERT INTO competence_area (name) VALUES ("Vista");
 INSERT INTO competence_area (name) VALUES ("TON");
 INSERT INTO competence_area (name) VALUES ("TESN");
 INSERT INTO competence_area (name) VALUES ("TOD");
-INSERT INTO competence_area (name) VALUES ("Altro");
+INSERT INTO competence_area (name) VALUES ("LCIF");
