@@ -15,6 +15,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     boolean existsActivityByTitleAndDateAndClub(String title, Date date, Club club);
     int countActivitiesByClubId(int clubId);
     Page<Activity> findActivitiesByClub(Club club, Pageable pageable);
+    Activity findActivityById(int id);
 
     @Query("SELECT COUNT(a) " +
            "FROM Activity a " +

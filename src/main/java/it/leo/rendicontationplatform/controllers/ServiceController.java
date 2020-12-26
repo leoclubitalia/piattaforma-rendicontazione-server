@@ -7,6 +7,7 @@ import it.leo.rendicontationplatform.support.Constants;
 import it.leo.rendicontationplatform.support.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddServiceForSomeoneElseException;
+import it.leo.rendicontationplatform.support.exceptions.UnableToEditServiceForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +39,15 @@ public class ServiceController {
     }
 
     @PreAuthorize("hasAuthority('club')")
-    @PutMapping
+    @PostMapping("/edit") // it should be a put but doesn't work with flutter web
     public ResponseEntity edit(@RequestBody @Valid Service service) {
-        //return new ResponseEntity(serviceService.editService(service), HttpStatus.OK);
-        return new ResponseEntity(null, HttpStatus.FORBIDDEN);
+        try {
+            Service edited = serviceService.editService(Utils.getEmail(), service);
+            return new ResponseEntity(edited, HttpStatus.OK);
+        }
+        catch ( UnableToEditServiceForSomeoneElseException e ) {
+            return new ResponseEntity(Constants.UNABLE_TO_EDIT_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
+        }
     }
 
 

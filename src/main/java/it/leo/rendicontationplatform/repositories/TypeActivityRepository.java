@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface TypeActivityRepository extends JpaRepository<TypeActivity, Integer> {
+    TypeActivity findTypeActivityById(int id);
+
     @Query("SELECT t FROM TypeActivity t WHERE t.enabled = true")
     List<TypeActivity> findAllTypeActivityEnabled();
 }

@@ -15,6 +15,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     boolean existsServiceByTitleAndDateAndClub(String title, Date date, Club club);
     int countServicesByClubId(int clubId);
     Page<Service> findServicesByClub(Club club, Pageable pageable);
+    Service findServiceById(int id);
 
     @Query("SELECT COUNT(s) " +
            "FROM Service s " +

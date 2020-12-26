@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface TypeServiceRepository extends JpaRepository<TypeService, Integer> {
     TypeService findTypeServiceById(int id);
+    
     @Query("SELECT t FROM TypeService t WHERE t.enabled = true")
     List<TypeService> findAllTypeServiceEnabled();
 }

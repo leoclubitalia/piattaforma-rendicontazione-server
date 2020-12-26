@@ -1,20 +1,29 @@
 package it.leo.rendicontationplatform.services;
 
 
-import it.leo.rendicontationplatform.entities.Service;
+import it.leo.rendicontationplatform.entities.*;
 import it.leo.rendicontationplatform.repositories.ClubRepository;
+import it.leo.rendicontationplatform.repositories.CompetenceAreaRepository;
 import it.leo.rendicontationplatform.repositories.ServiceRepository;
+import it.leo.rendicontationplatform.repositories.TypeServiceRepository;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddServiceForSomeoneElseException;
+import it.leo.rendicontationplatform.support.exceptions.UnableToEditServiceForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @org.springframework.stereotype.Service
 public class ServiceService {
     @Autowired
     private ServiceRepository serviceRepository;
+    @Autowired
+    private TypeServiceRepository typeServiceRepository;
+    @Autowired
+    private CompetenceAreaRepository competenceAreaRepository;
     @Autowired
     private ClubRepository clubRepository;
     @Autowired
@@ -35,8 +44,32 @@ public class ServiceService {
     }
 
     @Transactional(readOnly = false)
-    public Service editService(Service service) {
-        return serviceRepository.save(service);
+    public Service editService(String email, Service service) throws UnableToEditServiceForSomeoneElseException {
+        if ( service.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
+            throw new UnableToEditServiceForSomeoneElseException();
+        }
+        Service attached = serviceRepository.findServiceById(service.getId());
+        attached.setTitle(service.getTitle());
+        attached.setDate(service.getDate());
+        attached.setDescription(service.getDescription());
+        attached.setCity(service.getCity());
+        attached.setSatisfactionDegree(service.getSatisfactionDegree());
+        attached.setQuantityParticipants(service.getQuantityParticipants());
+        attached.setQuantityServedPeople(service.getQuantityServedPeople());
+        attached.setDuration(service.getDuration());
+        attached.setMoneyOrMaterialCollected(service.getMoneyOrMaterialCollected());
+        Set<TypeService> types = new HashSet();
+        for (TypeService type : service.getTypesService()) {
+            types.add(typeServiceRepository.findTypeServiceById(type.getId()));
+        }
+        attached.setTypesService(types);
+        Set<CompetenceArea> areas = new HashSet();
+        for (CompetenceArea area : service.getCompetenceAreasService()) {
+            areas.add(competenceAreaRepository.findCompetenceAreaById(area.getId()));
+        }
+        attached.setCompetenceAreasService(areas);
+        attached.setOtherAssociations(service.getOtherAssociations());
+        return serviceRepository.save(attached);
     }
 
 
