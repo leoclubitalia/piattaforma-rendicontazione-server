@@ -45,6 +45,9 @@ public class ServiceController {
             Service edited = serviceService.editService(Utils.getEmail(), service);
             return new ResponseEntity(edited, HttpStatus.OK);
         }
+        catch ( ServiceAlreadyExistException e ) {
+            return new ResponseEntity(Constants.SERVICE_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
+        }
         catch ( UnableToEditServiceForSomeoneElseException e ) {
             return new ResponseEntity(Constants.UNABLE_TO_EDIT_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
         }

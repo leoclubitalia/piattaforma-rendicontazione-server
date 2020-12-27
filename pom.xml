@@ -10,7 +10,7 @@
     </parent>
     <groupId>it.leo</groupId>
     <artifactId>rendicontationplatform</artifactId>
-    <version>1.1</version>
+    <version>0.1.2</version>
     <name>rendicontationplatform</name>
     <description>Rendicontation Platform MD leo 108 Italy</description>
 

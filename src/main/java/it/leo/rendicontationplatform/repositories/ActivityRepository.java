@@ -13,6 +13,7 @@ import java.util.Date;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     boolean existsActivityByTitleAndDateAndClub(String title, Date date, Club club);
+    boolean existsActivityByTitleAndDateAndClubAndIdIsNot(String title, Date date, Club club, int id);
     int countActivitiesByClubId(int clubId);
     Page<Activity> findActivitiesByClub(Club club, Pageable pageable);
     Activity findActivityById(int id);

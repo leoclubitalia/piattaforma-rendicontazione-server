@@ -43,9 +43,12 @@ public class ActivityService {
     }
 
     @Transactional(readOnly = false)
-    public Activity editActivity(String email, Activity activity) throws UnableToEditActivityForSomeoneElseException {
+    public Activity editActivity(String email, Activity activity) throws UnableToEditActivityForSomeoneElseException, ActivityAlreadyExistException {
         if ( activity.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToEditActivityForSomeoneElseException();
+        }
+        if ( activityRepository.existsActivityByTitleAndDateAndClubAndIdIsNot(activity.getTitle(), activity.getDate(), activity.getClub(), activity.getId()) ) {
+            throw new ActivityAlreadyExistException();
         }
         Activity attached = activityRepository.findActivityById(activity.getId());
         attached.setTitle(activity.getTitle());

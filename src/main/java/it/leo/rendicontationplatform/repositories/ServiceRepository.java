@@ -13,6 +13,7 @@ import java.util.Date;
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Integer> {
     boolean existsServiceByTitleAndDateAndClub(String title, Date date, Club club);
+    boolean existsServiceByTitleAndDateAndClubAndIdIsNot(String title, Date date, Club club, int id);
     int countServicesByClubId(int clubId);
     Page<Service> findServicesByClub(Club club, Pageable pageable);
     Service findServiceById(int id);

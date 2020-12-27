@@ -44,9 +44,12 @@ public class ServiceService {
     }
 
     @Transactional(readOnly = false)
-    public Service editService(String email, Service service) throws UnableToEditServiceForSomeoneElseException {
+    public Service editService(String email, Service service) throws UnableToEditServiceForSomeoneElseException, ServiceAlreadyExistException {
         if ( service.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToEditServiceForSomeoneElseException();
+        }
+        if ( serviceRepository.existsServiceByTitleAndDateAndClubAndIdIsNot(service.getTitle(), service.getDate(), service.getClub(), service.getId()) ) {
+            throw new ServiceAlreadyExistException();
         }
         Service attached = serviceRepository.findServiceById(service.getId());
         attached.setTitle(service.getTitle());
