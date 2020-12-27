@@ -22,7 +22,14 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
            "FROM Activity a " +
            "WHERE a.club.id = ?1 AND " +
            "a.date > ?2")
-    int countAllActivitiesByClubIdAndSocialYear(int clubId, Date startDate);
+    int countAllActivitiesByClubIdAndSocialYear(Integer clubId, Date startDate);
+
+    @Query("SELECT COUNT(a) " +
+            "FROM Activity a " +
+            "WHERE (a.club.id = ?1 OR ?1 IS NULL) AND " +
+            "      (a.club.district.id = ?2 OR ?2 IS NULL) AND " +
+            "      ((a.date >= ?3 AND a.date <= ?4) OR (a.date >= ?3 AND ?4 IS NULL) OR (a.date <= ?4 AND ?3 IS NULL) OR (?3 IS NULL AND ?4 IS NULL)) ")
+    int countAllActivitiesAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate);
 
     @Query("SELECT a " +
            "FROM Activity a LEFT JOIN a.typesActivity t " +
@@ -37,4 +44,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
            "      (?10 = t.id OR ?10 IS NULL) " +
            "GROUP BY a ")
     Page<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer districtId, Integer typeActivityId, Pageable pageable);
+
+
 }

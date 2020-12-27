@@ -58,6 +58,22 @@ public class RetrieveService {
         return result;
     }
 
+    public Map<String, Integer> getCountersAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate) {
+        Map<String, Integer> result = new HashMap<>();
+        result.put("services", serviceRepository.countAllServicesAdvanced(clubId, districtId, startDate, endDate));
+        result.put("activities", activityRepository.countAllActivitiesAdvanced(clubId, districtId, startDate, endDate));
+        if ( clubId != null ) {
+            Club club = clubRepository.findClubById(clubId);
+            result.put("members", club.getCurrentMembers());
+            result.put("aspirants", club.getAspirantMembers());
+        }
+        else {
+            result.put("members", districtRepository.countMembersAdvanced(districtId));
+            result.put("aspirants", districtRepository.countAspirantsAdvanced(districtId));
+        }
+        return result;
+    }
+
     @Transactional(readOnly = true)
     public List<TypeActivity> getAllTypeActivity() {
         return typeActivityRepository.findAllTypeActivityEnabled();

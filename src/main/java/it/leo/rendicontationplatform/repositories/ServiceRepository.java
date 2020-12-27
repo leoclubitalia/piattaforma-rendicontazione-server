@@ -22,7 +22,14 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "FROM Service s " +
            "WHERE s.club.id = ?1 AND " +
            "s.date > ?2")
-    int countAllServicesByClubIdAndSocialYear(int clubId, Date startDate);
+    int countAllServicesByClubIdAndSocialYear(Integer clubId, Date startDate);
+
+    @Query("SELECT COUNT(s) " +
+            "FROM Service s " +
+            "WHERE (s.club.id = ?1 OR ?1 IS NULL) AND " +
+            "      (s.club.district.id = ?2 OR ?2 IS NULL) AND " +
+            "      ((s.date >= ?3 AND s.date <= ?4) OR (s.date >= ?3 AND ?4 IS NULL) OR (s.date <= ?4 AND ?3 IS NULL) OR (?3 IS NULL AND ?4 IS NULL)) ")
+    int countAllServicesAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate);
 
     @Query("SELECT s " +
            "FROM Service s LEFT JOIN s.typesService t LEFT JOIN s.competenceAreasService c " +
