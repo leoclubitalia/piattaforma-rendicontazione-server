@@ -1,4 +1,4 @@
-package it.leo.rendicontationplatform.support;
+package it.leo.rendicontationplatform.support.authentication;
 
 
 import org.springframework.beans.factory.annotation.Value;

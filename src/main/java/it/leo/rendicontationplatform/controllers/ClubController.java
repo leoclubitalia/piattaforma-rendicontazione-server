@@ -3,7 +3,7 @@ package it.leo.rendicontationplatform.controllers;
 
 import it.leo.rendicontationplatform.services.ClubService;
 import it.leo.rendicontationplatform.services.RetrieveService;
-import it.leo.rendicontationplatform.support.Utils;
+import it.leo.rendicontationplatform.support.authentication.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

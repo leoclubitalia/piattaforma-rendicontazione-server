@@ -4,7 +4,7 @@ package it.leo.rendicontationplatform.controllers;
 import it.leo.rendicontationplatform.entities.Activity;
 import it.leo.rendicontationplatform.services.ActivityService;
 import it.leo.rendicontationplatform.support.Constants;
-import it.leo.rendicontationplatform.support.Utils;
+import it.leo.rendicontationplatform.support.authentication.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ActivityAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddActivityForSomeoneElseException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToEditActivityForSomeoneElseException;

@@ -3,6 +3,7 @@ package it.leo.rendicontationplatform.services;
 
 import it.leo.rendicontationplatform.entities.*;
 import it.leo.rendicontationplatform.repositories.*;
+import it.leo.rendicontationplatform.support.objects.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +43,7 @@ public class RetrieveService {
 
     @Transactional(readOnly = true)
     public Map<String, Integer> getQuantityServices(String email) {
-        Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> result = new HashMap();
         int id = clubRepository.findClubByEmail(email).getId();
         result.put("all", serviceRepository.countServicesByClubId(id));
         result.put("current_year", serviceRepository.countAllServicesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
@@ -51,17 +52,30 @@ public class RetrieveService {
 
     @Transactional(readOnly = true)
     public Map<String, Integer> getQuantityActivities(String email) {
-        Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> result = new HashMap();
         int id = clubRepository.findClubByEmail(email).getId();
         result.put("all", activityRepository.countActivitiesByClubId(id));
         result.put("current_year", activityRepository.countAllActivitiesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
         return result;
     }
 
-    public Map<String, Integer> getCountersAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate) {
-        Map<String, Integer> result = new HashMap<>();
-        result.put("services", serviceRepository.countAllServicesAdvanced(clubId, districtId, startDate, endDate));
-        result.put("activities", activityRepository.countAllActivitiesAdvanced(clubId, districtId, startDate, endDate));
+    public Map<String, Object> getCountersAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate) {
+        Map<String, Object> result = new HashMap();
+        result.put("services", serviceRepository.countAllServicesAdvanced(clubId, districtId, null, startDate, endDate));
+        result.put("activities", activityRepository.countAllActivitiesAdvanced(clubId, districtId, null, startDate, endDate));
+        List<Report> serviceAreaReport = new LinkedList();
+        List<CompetenceArea> areas = getAllCompetenceArea();
+        for ( CompetenceArea area : areas ) {
+            serviceAreaReport.add(new Report(area.getName(), serviceRepository.countAllServicesAdvanced(clubId, districtId, area.getId(), startDate, endDate)));
+        }
+        result.put("serviceAreaReport", serviceAreaReport);
+
+        List<Report> activityTypeReport = new LinkedList();
+        List<TypeActivity> typeActivities = getAllTypeActivity();
+        for ( TypeActivity type : typeActivities ) {
+            activityTypeReport.add(new Report(type.getName(), serviceRepository.countAllServicesAdvanced(clubId, districtId, type.getId(), startDate, endDate)));
+        }
+        result.put("activityTypeReport", activityTypeReport);
         if ( clubId != null ) {
             Club club = clubRepository.findClubById(clubId);
             result.put("members", club.getCurrentMembers());
@@ -107,7 +121,7 @@ public class RetrieveService {
             return pagedResult.getContent();
         }
         else {
-            return new ArrayList<>();
+            return new ArrayList();
         }
     }
 
@@ -119,7 +133,7 @@ public class RetrieveService {
             return pagedResult.getContent();
         }
         else {
-            return new ArrayList<>();
+            return new ArrayList();
         }
     }
 
@@ -136,7 +150,7 @@ public class RetrieveService {
             return pagedResult.getContent();
         }
         else {
-            return new ArrayList<>();
+            return new ArrayList();
         }
     }
 

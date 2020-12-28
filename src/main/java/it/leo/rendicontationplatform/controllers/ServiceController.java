@@ -4,7 +4,7 @@ package it.leo.rendicontationplatform.controllers;
 import it.leo.rendicontationplatform.entities.Service;
 import it.leo.rendicontationplatform.services.ServiceService;
 import it.leo.rendicontationplatform.support.Constants;
-import it.leo.rendicontationplatform.support.Utils;
+import it.leo.rendicontationplatform.support.authentication.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddServiceForSomeoneElseException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToEditServiceForSomeoneElseException;

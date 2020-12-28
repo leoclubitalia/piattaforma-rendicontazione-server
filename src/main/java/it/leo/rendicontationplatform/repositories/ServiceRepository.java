@@ -24,12 +24,13 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "s.date > ?2")
     int countAllServicesByClubIdAndSocialYear(Integer clubId, Date startDate);
 
-    @Query("SELECT COUNT(s) " +
-            "FROM Service s " +
+    @Query("SELECT DISTINCT COUNT(s.id) " +
+            "FROM Service s LEFT JOIN s.competenceAreasService c " +
             "WHERE (s.club.id = ?1 OR ?1 IS NULL) AND " +
             "      (s.club.district.id = ?2 OR ?2 IS NULL) AND " +
-            "      ((s.date >= ?3 AND s.date <= ?4) OR (s.date >= ?3 AND ?4 IS NULL) OR (s.date <= ?4 AND ?3 IS NULL) OR (?3 IS NULL AND ?4 IS NULL)) ")
-    int countAllServicesAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate);
+            "      (?3 = c.id OR ?3 IS NULL) AND " +
+            "      ((s.date >= ?4 AND s.date <= ?5) OR (s.date >= ?4 AND ?5 IS NULL) OR (s.date <= ?5 AND ?4 IS NULL) OR (?4 IS NULL AND ?5 IS NULL))")
+    int countAllServicesAdvanced(Integer clubId, Integer districtId, Integer areaId, Date startDate, Date endDate);
 
     @Query("SELECT s " +
            "FROM Service s LEFT JOIN s.typesService t LEFT JOIN s.competenceAreasService c " +
@@ -46,6 +47,6 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "      (s.club.district.id = ?14 OR ?14 IS NULL) AND " +
            "      (?12 = t.id OR ?12 IS NULL) AND " +
            "      (?13 = c.id OR ?13 IS NULL) " +
-           "GROUP BY s ")
+           "GROUP BY s")
     Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, String moneyOrMaterialCollected, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
 }
