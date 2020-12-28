@@ -68,18 +68,6 @@ public class SearchService {
         return clubRepository.findClubByCity(city);
     }
 
-    @Transactional(readOnly = true)
-    public List<Service> findServicesByClub(Club club, int pageNumber, int pageSize) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
-        Page<Service> pagedResult = serviceRepository.findServicesByClub(club, paging);
-        if ( pagedResult.hasContent() ) {
-            return pagedResult.getContent();
-        }
-        else {
-            return new ArrayList<>();
-        }
-    }
-
     @Transactional(readOnly = false)
     public List<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, String moneyOrMaterialCollected, Integer quantityServedPeople, Integer cityId, Integer clubId, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Integer pageNumber, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
@@ -118,18 +106,6 @@ public class SearchService {
             research.setDistrict(new District(districtId));
         }
         researchServiceRepository.save(research);
-        if ( pagedResult.hasContent() ) {
-            return pagedResult.getContent();
-        }
-        else {
-            return new ArrayList<>();
-        }
-    }
-
-    @Transactional(readOnly = true)
-    public List<Activity> findActivitiesByClub(Club club, int pageNumber, int pageSize) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by("date").descending());
-        Page<Activity> pagedResult = activityRepository.findActivitiesByClub(club, paging);
         if ( pagedResult.hasContent() ) {
             return pagedResult.getContent();
         }

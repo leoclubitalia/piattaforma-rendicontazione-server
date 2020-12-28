@@ -8,6 +8,7 @@ import it.leo.rendicontationplatform.repositories.ServiceRepository;
 import it.leo.rendicontationplatform.repositories.TypeServiceRepository;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddServiceForSomeoneElseException;
+import it.leo.rendicontationplatform.support.exceptions.UnableToDeleteServiceForSomeoneElseException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToEditServiceForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public class ServiceService {
         if ( service.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToAddServiceForSomeoneElseException();
         }
-        if ( serviceRepository.existsServiceByTitleAndDateAndClub(service.getTitle(), service.getDate(), service.getClub()) ) {
+        if ( serviceRepository.existsServiceByTitleAndDateAndClubAndDeletedFalse(service.getTitle(), service.getDate(), service.getClub()) ) {
             throw new ServiceAlreadyExistException();
         }
         service = serviceRepository.saveAndFlush(service);
@@ -48,7 +49,7 @@ public class ServiceService {
         if ( service.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToEditServiceForSomeoneElseException();
         }
-        if ( serviceRepository.existsServiceByTitleAndDateAndClubAndIdIsNot(service.getTitle(), service.getDate(), service.getClub(), service.getId()) ) {
+        if ( serviceRepository.existsServiceByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(service.getTitle(), service.getDate(), service.getClub(), service.getId()) ) {
             throw new ServiceAlreadyExistException();
         }
         Service attached = serviceRepository.findServiceById(service.getId());
@@ -72,7 +73,17 @@ public class ServiceService {
         }
         attached.setCompetenceAreasService(areas);
         attached.setOtherAssociations(service.getOtherAssociations());
-        return serviceRepository.save(attached);
+        return attached;
+    }
+
+    @Transactional(readOnly = false)
+    public Service deleteService(String email, Integer serviceId) throws UnableToDeleteServiceForSomeoneElseException {
+        Service attached = serviceRepository.findServiceById(serviceId);
+        if ( attached.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
+            throw new UnableToDeleteServiceForSomeoneElseException();
+        }
+        attached.setDeleted(true);
+        return attached;
     }
 
 

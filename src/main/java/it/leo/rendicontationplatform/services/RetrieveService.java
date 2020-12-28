@@ -45,7 +45,7 @@ public class RetrieveService {
     public Map<String, Integer> getQuantityServices(String email) {
         Map<String, Integer> result = new HashMap();
         int id = clubRepository.findClubByEmail(email).getId();
-        result.put("all", serviceRepository.countServicesByClubId(id));
+        result.put("all", serviceRepository.countServicesByClubIdAndDeletedFalse(id));
         result.put("current_year", serviceRepository.countAllServicesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
         return result;
     }
@@ -54,7 +54,7 @@ public class RetrieveService {
     public Map<String, Integer> getQuantityActivities(String email) {
         Map<String, Integer> result = new HashMap();
         int id = clubRepository.findClubByEmail(email).getId();
-        result.put("all", activityRepository.countActivitiesByClubId(id));
+        result.put("all", activityRepository.countActivitiesByClubIdAndDeletedFalse(id));
         result.put("current_year", activityRepository.countAllActivitiesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
         return result;
     }

@@ -97,11 +97,6 @@ public class SearchController {
         return new ResponseEntity(retrieveService.getAllDistricts(), HttpStatus.OK);
     }
 
-    @GetMapping("/service/by_club")
-    public ResponseEntity getServicesByClub(@RequestBody @Valid Club club, @RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return new ResponseEntity(searchService.findServicesByClub(club, pageNumber, pageSize), HttpStatus.OK);
-    }
-
     @GetMapping("/service/advanced")
     public ResponseEntity getAdvancedSearchServices(@RequestParam(required = false) String title,
                                                     @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") Date startDate,
@@ -120,11 +115,6 @@ public class SearchController {
                                                     Integer pageNumber,
                                                     Integer pageSize) {
         return new ResponseEntity(searchService.findServicesAdvanced(title, startDate, endDate, quantityParticipants, satisfactionDegree, duration, otherAssociations, moneyOrMaterialCollected, quantityServedPeople, cityId, clubId, typeServiceId, competenceAreaId, districtId, pageNumber, pageSize), HttpStatus.OK);
-    }
-
-    @GetMapping("/activity/by_club")
-    public ResponseEntity getActivitiesByClub(@RequestBody @Valid Club club, @RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return new ResponseEntity(searchService.findActivitiesByClub(club, pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/activity/advanced")

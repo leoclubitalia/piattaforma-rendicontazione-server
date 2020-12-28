@@ -7,6 +7,7 @@ import it.leo.rendicontationplatform.support.Constants;
 import it.leo.rendicontationplatform.support.authentication.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ActivityAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddActivityForSomeoneElseException;
+import it.leo.rendicontationplatform.support.exceptions.UnableToDeleteActivityForSomeoneElseException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToEditActivityForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,18 @@ public class ActivityController {
         }
         catch ( UnableToEditActivityForSomeoneElseException e ) {
             return new ResponseEntity(Constants.UNABLE_TO_EDIT_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('club')")
+    @GetMapping("/delete") // it should be a delete but doesn't work with flutter web
+    public ResponseEntity delete(@RequestParam(required = false) Integer activityId) {
+        try {
+            Activity deleted = activityService.deleteActivity(Utils.getEmail(), activityId);
+            return new ResponseEntity(deleted, HttpStatus.OK);
+        }
+        catch ( UnableToDeleteActivityForSomeoneElseException e ) {
+            return new ResponseEntity(Constants.UNABLE_TO_DELETE_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
         }
     }
 

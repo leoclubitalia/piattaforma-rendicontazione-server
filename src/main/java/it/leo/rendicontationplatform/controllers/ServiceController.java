@@ -7,6 +7,7 @@ import it.leo.rendicontationplatform.support.Constants;
 import it.leo.rendicontationplatform.support.authentication.Utils;
 import it.leo.rendicontationplatform.support.exceptions.ServiceAlreadyExistException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToAddServiceForSomeoneElseException;
+import it.leo.rendicontationplatform.support.exceptions.UnableToDeleteServiceForSomeoneElseException;
 import it.leo.rendicontationplatform.support.exceptions.UnableToEditServiceForSomeoneElseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,18 @@ public class ServiceController {
         }
         catch ( UnableToEditServiceForSomeoneElseException e ) {
             return new ResponseEntity(Constants.UNABLE_TO_EDIT_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('club')")
+    @GetMapping("/delete") // it should be a delete but doesn't work with flutter web
+    public ResponseEntity delete(@RequestParam(required = false) Integer serviceId) {
+        try {
+            Service deleted = serviceService.deleteService(Utils.getEmail(), serviceId);
+            return new ResponseEntity(deleted, HttpStatus.OK);
+        }
+        catch ( UnableToDeleteServiceForSomeoneElseException e ) {
+            return new ResponseEntity(Constants.UNABLE_TO_DELETE_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -6,9 +6,7 @@ import it.leo.rendicontationplatform.entities.TypeActivity;
 import it.leo.rendicontationplatform.repositories.ActivityRepository;
 import it.leo.rendicontationplatform.repositories.ClubRepository;
 import it.leo.rendicontationplatform.repositories.TypeActivityRepository;
-import it.leo.rendicontationplatform.support.exceptions.ActivityAlreadyExistException;
-import it.leo.rendicontationplatform.support.exceptions.UnableToAddActivityForSomeoneElseException;
-import it.leo.rendicontationplatform.support.exceptions.UnableToEditActivityForSomeoneElseException;
+import it.leo.rendicontationplatform.support.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +32,7 @@ public class ActivityService {
         if ( activity.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToAddActivityForSomeoneElseException();
         }
-        if ( activityRepository.existsActivityByTitleAndDateAndClub(activity.getTitle(), activity.getDate(), activity.getClub()) ) {
+        if ( activityRepository.existsActivityByTitleAndDateAndClubAndDeletedFalse(activity.getTitle(), activity.getDate(), activity.getClub()) ) {
             throw new ActivityAlreadyExistException();
         }
         activity = activityRepository.saveAndFlush(activity);
@@ -47,7 +45,7 @@ public class ActivityService {
         if ( activity.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToEditActivityForSomeoneElseException();
         }
-        if ( activityRepository.existsActivityByTitleAndDateAndClubAndIdIsNot(activity.getTitle(), activity.getDate(), activity.getClub(), activity.getId()) ) {
+        if ( activityRepository.existsActivityByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(activity.getTitle(), activity.getDate(), activity.getClub(), activity.getId()) ) {
             throw new ActivityAlreadyExistException();
         }
         Activity attached = activityRepository.findActivityById(activity.getId());
@@ -63,7 +61,17 @@ public class ActivityService {
         attached.setTypesActivity(types);
         attached.setLionsParticipation(activity.isLionsParticipation());
         attached.setCity(activity.getCity());
-        return activityRepository.save(attached);
+        return attached;
+    }
+
+    @Transactional(readOnly = false)
+    public Activity deleteActivity(String email, Integer activityId) throws UnableToDeleteActivityForSomeoneElseException {
+        Activity attached = activityRepository.findActivityById(activityId);
+        if ( attached.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
+            throw new UnableToDeleteActivityForSomeoneElseException();
+        }
+        attached.setDeleted(true);
+        return attached;
     }
 
 

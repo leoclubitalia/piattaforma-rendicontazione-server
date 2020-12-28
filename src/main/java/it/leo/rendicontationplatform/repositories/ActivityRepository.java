@@ -12,16 +12,16 @@ import java.util.Date;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
-    boolean existsActivityByTitleAndDateAndClub(String title, Date date, Club club);
-    boolean existsActivityByTitleAndDateAndClubAndIdIsNot(String title, Date date, Club club, int id);
-    int countActivitiesByClubId(int clubId);
-    Page<Activity> findActivitiesByClub(Club club, Pageable pageable);
+    boolean existsActivityByTitleAndDateAndClubAndDeletedFalse(String title, Date date, Club club);
+    boolean existsActivityByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(String title, Date date, Club club, int id);
+    int countActivitiesByClubIdAndDeletedFalse(int clubId);
     Activity findActivityById(int id);
 
     @Query("SELECT COUNT(a) " +
            "FROM Activity a " +
            "WHERE a.club.id = ?1 AND " +
-           "a.date > ?2")
+           "a.date > ?2 AND " +
+           "a.deleted = FALSE")
     int countAllActivitiesByClubIdAndSocialYear(Integer clubId, Date startDate);
 
     @Query("SELECT DISTINCT COUNT(a.id) " +
@@ -29,7 +29,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
             "WHERE (a.club.id = ?1 OR ?1 IS NULL) AND " +
             "      (a.club.district.id = ?2 OR ?2 IS NULL) AND " +
             "      (?3 = t.id OR ?3 IS NULL) AND " +
-            "      ((a.date >= ?4 AND a.date <= ?5) OR (a.date >= ?4 AND ?5 IS NULL) OR (a.date <= ?5 AND ?4 IS NULL) OR (?4 IS NULL AND ?5 IS NULL))")
+            "      ((a.date >= ?4 AND a.date <= ?5) OR (a.date >= ?4 AND ?5 IS NULL) OR (a.date <= ?5 AND ?4 IS NULL) OR (?4 IS NULL AND ?5 IS NULL)) AND " +
+            "      a.deleted = FALSE")
     int countAllActivitiesAdvanced(Integer clubId, Integer districtId, Integer typeId, Date startDate, Date endDate);
 
     @Query("SELECT a " +
@@ -42,7 +43,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
            "      (a.city.id = ?7 OR ?7 IS NULL) AND " +
            "      (a.club.id = ?8 OR ?8 IS NULL) AND " +
            "      (a.club.district.id = ?9 OR ?9 IS NULL) AND " +
-           "      (?10 = t.id OR ?10 IS NULL) " +
+           "      (?10 = t.id OR ?10 IS NULL) AND " +
+           "       a.deleted = FALSE " +
            "GROUP BY a")
     Page<Activity> findActivitiesAdvanced(String title, Date startDate, Date endDate, Integer quantityLeo, Integer satisfactionDegree, Boolean lionsParticipation, Integer cityId, Integer clubId, Integer districtId, Integer typeActivityId, Pageable pageable);
 

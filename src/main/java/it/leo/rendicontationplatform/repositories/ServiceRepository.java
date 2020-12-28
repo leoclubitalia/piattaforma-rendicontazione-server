@@ -12,16 +12,16 @@ import java.util.Date;
 
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Integer> {
-    boolean existsServiceByTitleAndDateAndClub(String title, Date date, Club club);
-    boolean existsServiceByTitleAndDateAndClubAndIdIsNot(String title, Date date, Club club, int id);
-    int countServicesByClubId(int clubId);
-    Page<Service> findServicesByClub(Club club, Pageable pageable);
+    boolean existsServiceByTitleAndDateAndClubAndDeletedFalse(String title, Date date, Club club);
+    boolean existsServiceByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(String title, Date date, Club club, int id);
+    int countServicesByClubIdAndDeletedFalse(int clubId);
     Service findServiceById(int id);
 
     @Query("SELECT COUNT(s) " +
            "FROM Service s " +
            "WHERE s.club.id = ?1 AND " +
-           "s.date > ?2")
+           "s.date > ?2 AND " +
+           "s.deleted = FALSE")
     int countAllServicesByClubIdAndSocialYear(Integer clubId, Date startDate);
 
     @Query("SELECT DISTINCT COUNT(s.id) " +
@@ -29,7 +29,8 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
             "WHERE (s.club.id = ?1 OR ?1 IS NULL) AND " +
             "      (s.club.district.id = ?2 OR ?2 IS NULL) AND " +
             "      (?3 = c.id OR ?3 IS NULL) AND " +
-            "      ((s.date >= ?4 AND s.date <= ?5) OR (s.date >= ?4 AND ?5 IS NULL) OR (s.date <= ?5 AND ?4 IS NULL) OR (?4 IS NULL AND ?5 IS NULL))")
+            "      ((s.date >= ?4 AND s.date <= ?5) OR (s.date >= ?4 AND ?5 IS NULL) OR (s.date <= ?5 AND ?4 IS NULL) OR (?4 IS NULL AND ?5 IS NULL)) AND " +
+            "      s.deleted = FALSE")
     int countAllServicesAdvanced(Integer clubId, Integer districtId, Integer areaId, Date startDate, Date endDate);
 
     @Query("SELECT s " +
@@ -46,7 +47,8 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
            "      (s.club.id = ?11 OR ?11 IS NULL) AND " +
            "      (s.club.district.id = ?14 OR ?14 IS NULL) AND " +
            "      (?12 = t.id OR ?12 IS NULL) AND " +
-           "      (?13 = c.id OR ?13 IS NULL) " +
+           "      (?13 = c.id OR ?13 IS NULL) AND " +
+           "      s.deleted = FALSE " +
            "GROUP BY s")
     Page<Service> findServicesAdvanced(String title, Date startDate, Date endDate, Integer quantityParticipants, Integer satisfactionDegree, Integer duration, String otherAssociations, String moneyOrMaterialCollected, Integer quantityServedPeople, Integer cityId, Integer club, Integer typeServiceId, Integer competenceAreaId, Integer districtId, Pageable pageable);
 }

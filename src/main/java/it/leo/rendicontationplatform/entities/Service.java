@@ -58,6 +58,10 @@ public class Service {
     @JsonIgnore
     private long version;
 
+    @Column(name = "deleted", nullable = false)
+    @JsonIgnore
+    private boolean deleted;
+
     @ManyToOne
     @JoinColumn(name = "city")
     private City city;
