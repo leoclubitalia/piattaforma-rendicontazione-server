@@ -1,6 +1,6 @@
 USE rendicontation;
 
-#per v0.2.0
+-- per v0.2.0
 ALTER TABLE service ADD column deleted BOOL DEFAULT FALSE NOT NULL;
 ALTER TABLE activity ADD column deleted BOOL DEFAULT FALSE NOT NULL;
 

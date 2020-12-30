@@ -67,5 +67,23 @@ public class Activity {
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Set<TypeActivity> typesActivity;
 
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", quantityLeo=" + quantityLeo +
+                ", lionsParticipation=" + lionsParticipation +
+                ", satisfactionDegree=" + satisfactionDegree +
+                ", version=" + version +
+                ", deleted=" + deleted +
+                ", city=" + city +
+                ", club=" + club +
+                ", typesActivity=" + typesActivity +
+                '}';
+    }
+
 
 }

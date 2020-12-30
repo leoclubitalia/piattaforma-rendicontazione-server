@@ -45,8 +45,8 @@ public class RetrieveService {
     public Map<String, Integer> getQuantityServices(String email) {
         Map<String, Integer> result = new HashMap();
         int id = clubRepository.findClubByEmail(email).getId();
-        result.put("all", serviceRepository.countServicesByClubIdAndDeletedFalse(id));
-        result.put("current_year", serviceRepository.countAllServicesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
+        result.put("all", serviceRepository.countServicesAdvanced(id,null, null, null, null));
+        result.put("current_year", serviceRepository.countServicesAdvanced(id,null, null, getStartDateCurrentSocialYear(), getStartDateNextSocialYear()));
         return result;
     }
 
@@ -54,26 +54,31 @@ public class RetrieveService {
     public Map<String, Integer> getQuantityActivities(String email) {
         Map<String, Integer> result = new HashMap();
         int id = clubRepository.findClubByEmail(email).getId();
-        result.put("all", activityRepository.countActivitiesByClubIdAndDeletedFalse(id));
-        result.put("current_year", activityRepository.countAllActivitiesByClubIdAndSocialYear(id, getStartDateCurrentSocialYear()));
+        result.put("all", activityRepository.countActivitiesAdvanced(id,null, null, null, null));
+        result.put("current_year", activityRepository.countActivitiesAdvanced(id,null, null, getStartDateCurrentSocialYear(), getStartDateNextSocialYear()));
         return result;
     }
 
     public Map<String, Object> getCountersAdvanced(Integer clubId, Integer districtId, Date startDate, Date endDate) {
+        if ( endDate != null ) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endDate);
+            calendar.add(Calendar.HOUR, 23);
+            endDate = calendar.getTime();
+        }
         Map<String, Object> result = new HashMap();
-        result.put("services", serviceRepository.countAllServicesAdvanced(clubId, districtId, null, startDate, endDate));
-        result.put("activities", activityRepository.countAllActivitiesAdvanced(clubId, districtId, null, startDate, endDate));
+        result.put("services", serviceRepository.countServicesAdvanced(clubId, districtId, null, startDate, endDate));
+        result.put("activities", activityRepository.countActivitiesAdvanced(clubId, districtId, null, startDate, endDate));
         List<Report> serviceAreaReport = new LinkedList();
         List<CompetenceArea> areas = getAllCompetenceArea();
         for ( CompetenceArea area : areas ) {
-            serviceAreaReport.add(new Report(area.getName(), serviceRepository.countAllServicesAdvanced(clubId, districtId, area.getId(), startDate, endDate)));
+            serviceAreaReport.add(new Report(area.getName(), serviceRepository.countServicesAdvanced(clubId, districtId, area.getId(), startDate, endDate)));
         }
         result.put("serviceAreaReport", serviceAreaReport);
-
         List<Report> activityTypeReport = new LinkedList();
         List<TypeActivity> typeActivities = getAllTypeActivity();
         for ( TypeActivity type : typeActivities ) {
-            activityTypeReport.add(new Report(type.getName(), serviceRepository.countAllServicesAdvanced(clubId, districtId, type.getId(), startDate, endDate)));
+            activityTypeReport.add(new Report(type.getName(), activityRepository.countActivitiesAdvanced(clubId, districtId, type.getId(), startDate, endDate)));
         }
         result.put("activityTypeReport", activityTypeReport);
         if ( clubId != null ) {
@@ -168,6 +173,14 @@ public class RetrieveService {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.SECOND, calendar.get(calendar.SECOND) - 1);
+        return calendar.getTime();
+    }
+
+    private Date getStartDateNextSocialYear() {
+        Date currentDate = getStartDateCurrentSocialYear();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.set(Calendar.YEAR, calendar.get(calendar.YEAR) + 1);
         return calendar.getTime();
     }
 

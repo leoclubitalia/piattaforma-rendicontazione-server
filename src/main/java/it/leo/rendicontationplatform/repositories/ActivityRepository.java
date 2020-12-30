@@ -14,24 +14,16 @@ import java.util.Date;
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     boolean existsActivityByTitleAndDateAndClubAndDeletedFalse(String title, Date date, Club club);
     boolean existsActivityByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(String title, Date date, Club club, int id);
-    int countActivitiesByClubIdAndDeletedFalse(int clubId);
     Activity findActivityById(int id);
 
-    @Query("SELECT COUNT(a) " +
-           "FROM Activity a " +
-           "WHERE a.club.id = ?1 AND " +
-           "a.date > ?2 AND " +
-           "a.deleted = FALSE")
-    int countAllActivitiesByClubIdAndSocialYear(Integer clubId, Date startDate);
-
-    @Query("SELECT DISTINCT COUNT(a.id) " +
+    @Query("SELECT COUNT(DISTINCT a) " +
             "FROM Activity a LEFT JOIN a.typesActivity t " +
             "WHERE (a.club.id = ?1 OR ?1 IS NULL) AND " +
             "      (a.club.district.id = ?2 OR ?2 IS NULL) AND " +
             "      (?3 = t.id OR ?3 IS NULL) AND " +
             "      ((a.date >= ?4 AND a.date <= ?5) OR (a.date >= ?4 AND ?5 IS NULL) OR (a.date <= ?5 AND ?4 IS NULL) OR (?4 IS NULL AND ?5 IS NULL)) AND " +
             "      a.deleted = FALSE")
-    int countAllActivitiesAdvanced(Integer clubId, Integer districtId, Integer typeId, Date startDate, Date endDate);
+    int countActivitiesAdvanced(Integer clubId, Integer districtId, Integer typeId, Date startDate, Date endDate);
 
     @Query("SELECT a " +
            "FROM Activity a LEFT JOIN a.typesActivity t " +

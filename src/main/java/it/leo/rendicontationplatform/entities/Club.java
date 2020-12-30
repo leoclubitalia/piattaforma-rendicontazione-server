@@ -64,5 +64,21 @@ public class Club {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Club{" +
+                "id=" + id +
+                ", enabled=" + enabled +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", foundationDate=" + foundationDate +
+                ", currentMembers=" + currentMembers +
+                ", aspirantMembers=" + aspirantMembers +
+                ", city=" + city +
+                ", district=" + district +
+                ", version=" + version +
+                '}';
+    }
+
 
 }

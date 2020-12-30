@@ -89,7 +89,6 @@ public class Service {
         return "Service{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
                 ", date=" + date +
                 ", quantityParticipants=" + quantityParticipants +
                 ", duration=" + duration +
