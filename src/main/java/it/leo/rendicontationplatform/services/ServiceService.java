@@ -32,12 +32,9 @@ public class ServiceService {
 
 
     @Transactional(readOnly = false)
-    public Service addService(String email, Service service) throws ServiceAlreadyExistException, UnableToAddServiceForSomeoneElseException {
+    public Service addService(String email, Service service) throws UnableToAddServiceForSomeoneElseException {
         if ( service.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToAddServiceForSomeoneElseException();
-        }
-        if ( serviceRepository.existsServiceByTitleAndDateAndClubAndDeletedFalse(service.getTitle(), service.getDate(), service.getClub()) ) {
-            throw new ServiceAlreadyExistException();
         }
         service = serviceRepository.saveAndFlush(service);
         entityManager.refresh(service);
@@ -45,12 +42,9 @@ public class ServiceService {
     }
 
     @Transactional(readOnly = false)
-    public Service editService(String email, Service service) throws UnableToEditServiceForSomeoneElseException, ServiceAlreadyExistException {
+    public Service editService(String email, Service service) throws UnableToEditServiceForSomeoneElseException {
         if ( service.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToEditServiceForSomeoneElseException();
-        }
-        if ( serviceRepository.existsServiceByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(service.getTitle(), service.getDate(), service.getClub(), service.getId()) ) {
-            throw new ServiceAlreadyExistException();
         }
         Service attached = serviceRepository.findServiceById(service.getId());
         attached.setTitle(service.getTitle());

@@ -28,12 +28,9 @@ public class ActivityService {
 
 
     @Transactional(readOnly = false)
-    public Activity addActivity(String email, Activity activity) throws ActivityAlreadyExistException, UnableToAddActivityForSomeoneElseException {
+    public Activity addActivity(String email, Activity activity) throws UnableToAddActivityForSomeoneElseException {
         if ( activity.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToAddActivityForSomeoneElseException();
-        }
-        if ( activityRepository.existsActivityByTitleAndDateAndClubAndDeletedFalse(activity.getTitle(), activity.getDate(), activity.getClub()) ) {
-            throw new ActivityAlreadyExistException();
         }
         activity = activityRepository.saveAndFlush(activity);
         entityManager.refresh(activity);
@@ -41,12 +38,9 @@ public class ActivityService {
     }
 
     @Transactional(readOnly = false)
-    public Activity editActivity(String email, Activity activity) throws UnableToEditActivityForSomeoneElseException, ActivityAlreadyExistException {
+    public Activity editActivity(String email, Activity activity) throws UnableToEditActivityForSomeoneElseException {
         if ( activity.getClub().getId() != clubRepository.findClubByEmail(email).getId() ) {
             throw new UnableToEditActivityForSomeoneElseException();
-        }
-        if ( activityRepository.existsActivityByTitleAndDateAndClubAndIdIsNotAndDeletedFalse(activity.getTitle(), activity.getDate(), activity.getClub(), activity.getId()) ) {
-            throw new ActivityAlreadyExistException();
         }
         Activity attached = activityRepository.findActivityById(activity.getId());
         attached.setTitle(activity.getTitle());

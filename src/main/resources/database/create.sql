@@ -94,7 +94,6 @@ CREATE TABLE activity (
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id),
 	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
-	UNIQUE (title, date, club)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE INDEX activity_date_index ON activity (date);
@@ -141,7 +140,6 @@ CREATE TABLE service (
 	FOREIGN KEY (city) REFERENCES city (id),
 	FOREIGN KEY (club) REFERENCES club (id),
 	FOREIGN KEY (satisfaction_degree) REFERENCES satisfaction_degree (id),
-    UNIQUE (title, date, club)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE INDEX service_date_index ON service (date);

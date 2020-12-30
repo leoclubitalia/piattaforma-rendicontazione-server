@@ -31,9 +31,6 @@ public class ActivityController {
             Activity added = activityService.addActivity(Utils.getEmail(), activity);
             return new ResponseEntity(added, HttpStatus.OK);
         }
-        catch ( ActivityAlreadyExistException e ) {
-            return new ResponseEntity(Constants.ACTIVITY_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
-        }
         catch ( UnableToAddActivityForSomeoneElseException e ) {
             return new ResponseEntity(Constants.UNABLE_TO_ADD_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
         }
@@ -45,9 +42,6 @@ public class ActivityController {
         try {
             Activity edited = activityService.editActivity(Utils.getEmail(), activity);
             return new ResponseEntity(edited, HttpStatus.OK);
-        }
-        catch ( ActivityAlreadyExistException e ) {
-            return new ResponseEntity(Constants.ACTIVITY_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
         }
         catch ( UnableToEditActivityForSomeoneElseException e ) {
             return new ResponseEntity(Constants.UNABLE_TO_EDIT_FOR_SOMEONE_ELSE, HttpStatus.BAD_REQUEST);
