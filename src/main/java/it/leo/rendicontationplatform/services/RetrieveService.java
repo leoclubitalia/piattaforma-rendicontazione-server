@@ -47,6 +47,7 @@ public class RetrieveService {
         int id = clubRepository.findClubByEmail(email).getId();
         result.put("all", serviceRepository.countServicesAdvanced(id,null, null, null, null));
         result.put("current_year", serviceRepository.countServicesAdvanced(id,null, null, getStartDateCurrentSocialYear(), getStartDateNextSocialYear()));
+        result.put("previous_year", serviceRepository.countServicesAdvanced(id,null, null, getStartDatePreviousSocialYear(), getStartDateCurrentSocialYear()));
         return result;
     }
 
@@ -56,6 +57,7 @@ public class RetrieveService {
         int id = clubRepository.findClubByEmail(email).getId();
         result.put("all", activityRepository.countActivitiesAdvanced(id,null, null, null, null));
         result.put("current_year", activityRepository.countActivitiesAdvanced(id,null, null, getStartDateCurrentSocialYear(), getStartDateNextSocialYear()));
+        result.put("previous_year", activityRepository.countActivitiesAdvanced(id,null, null, getStartDatePreviousSocialYear(), getStartDateCurrentSocialYear()));
         return result;
     }
 
@@ -157,6 +159,14 @@ public class RetrieveService {
         else {
             return new ArrayList();
         }
+    }
+
+    private Date getStartDatePreviousSocialYear() {
+        Date currentDate = getStartDateCurrentSocialYear();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.set(Calendar.YEAR, calendar.get(calendar.YEAR) - 1);
+        return calendar.getTime();
     }
 
     private Date getStartDateCurrentSocialYear() {
